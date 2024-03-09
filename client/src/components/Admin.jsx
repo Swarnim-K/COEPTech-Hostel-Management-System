@@ -1,4 +1,3 @@
-import React from 'react';
 import './Admin.css'; // Make sure the path is correct
 
 const AdminLogin = () => {
@@ -19,7 +18,6 @@ const AdminLogin = () => {
         </form>
       </div>
     </div>
-      
   );
 };
 

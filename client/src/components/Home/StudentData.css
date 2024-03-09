@@ -1,0 +1,25 @@
+.studentdata{
+  background-color: #38419D;
+  width: 100%;
+}
+
+.studentdata__inner{
+ display: flex;
+ justify-content: space-between;
+}
+
+.studentdata__student{
+  margin: 2em;
+  color: white;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.studentdata__room{
+  margin: 2em;
+  color: white;
+  width: 40%;
+}

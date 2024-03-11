@@ -1,3 +1,81 @@
-.studentfinder{
-  background-color: #3887BE;
+.studentfindercombined {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px; /* Adjust based on your preference */
+  margin: auto;
+}
+
+.studentfindercombined__searchbar {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.studentfindercombined__searchbar_inner {
+  display: flex;
+  justify-content: center;
+}
+
+.studentfindercombined__searchbar_holder {
+  width: 100%;
+}
+
+.studentfindercombined__searchbar_input_holder {
+  width: 100%;
+}
+
+.studentfindercombined__searchbar input[type="search"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.studentfindercombined__searchbar input[type="search"]:focus {
+  border-color: #007bff; /* Adjust the color to fit your theme */
+}
+
+.studentdata {
+  width: 100%;
+}
+
+.studentdata__inner {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.studentdata__student p,
+.studentdata__room {
+  color: #333;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.studentdata__room {
+  font-weight: bold;
+}
+
+/* Add this part if you want to improve the mobile experience */
+@media (max-width: 600px) {
+  .studentfindercombined {
+    width: 90%;
+    margin-top: 20px;
+  }
+
+  .studentfindercombined__searchbar_inner,
+  .studentfindercombined__searchbar_holder,
+  .studentfindercombined__searchbar_input_holder {
+    flex-direction: column;
+  }
 }

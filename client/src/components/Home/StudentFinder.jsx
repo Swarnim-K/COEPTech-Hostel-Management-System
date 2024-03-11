@@ -1,24 +1,32 @@
-// StudentFinder.jsx
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchBar from './SearchBar';
-import StudentData from './StudentData';
-import "./StudentFinder.css"
+import './StudentFinder.css';
 
-const StudentFinder = () => {
+const StudentFinderCombined = () => {
   const [searchMIS, setSearchMIS] = useState('');
   const [studentData, setStudentData] = useState(null);
   const [error, setError] = useState(null);
+  const [selectedYear, setSelectedYear] = useState('1st');
 
-  const handleSearch = (newSearchMIS) => {
+  const handleSearch = (event) => {
+    const newSearchMIS = event.target.value;
     setSearchMIS(newSearchMIS);
   };
 
+  const handleYearChange = (year) => {
+    setSelectedYear(year);
+    // Reset the current state when changing years
+    setStudentData(null);
+    setSearchMIS('');
+  };
+
   useEffect(() => {
+    if (!searchMIS.length) return;
+
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:8000/api/checkStudent', { mis: searchMIS });
-
+        // Modify your API call or data processing to filter by `selectedYear` if necessary
+        const response = await axios.post('http://localhost:8000/api/checkStudent', { mis: searchMIS, year: selectedYear });
         if (response) {
           setStudentData(response.data);
           setError(null);
@@ -33,17 +41,30 @@ const StudentFinder = () => {
       }
     };
 
-    if (searchMIS.length) {
-      fetchData();
-    }
-  }, [searchMIS]);
+    fetchData();
+  }, [searchMIS, selectedYear]);
 
   return (
-    <div className='studentfinder'>
-      <SearchBar onSearch={handleSearch} />
-      <StudentData studentData={studentData} />
-    </div >
+    <div className='studentfindercombined'>
+      <label className="studentfindercombined__searchbar">
+        <input
+          type="search"
+          placeholder="Enter MIS or Room Number"
+          value={searchMIS}
+          onChange={handleSearch}
+        />
+      </label>
+      <div className='studentdata'>
+        {studentData ? (
+          <div className='studentdata__inner'>
+      
+          </div>
+        ) : (
+          <p>{error || 'Please enter an MIS to search for a student or select a year.'}</p>
+        )}
+      </div>
+    </div>
   );
 };
 
-export default StudentFinder;
+export default StudentFinderCombined;

@@ -4,6 +4,7 @@ import AdminLogin from './components/Admin.jsx';
 import GuestLogin from './components/Guest.jsx';
 import Home from './pages/Home.jsx';
 import FeatureComponent from './components/FeatureComponent'
+import StudentForm from './components/StudentForm.jsx';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/guest-login" element={<GuestLogin />} />
         <Route path="/admin-info" element={<FeatureComponent />} />
+        <Route path="/admit-student" element={<StudentForm />} />
       </Routes>
     </BrowserRouter>
   );

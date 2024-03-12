@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const roomSchema = new Schema({
   block: {
@@ -19,14 +19,15 @@ const roomSchema = new Schema({
   },
 });
 
-// Set `_id` field value to a concatenation of block, floor, and roomNumber
-// roomSchema.pre("validate", function (next) {
-//   if (this.isNew) {
-//     const paddedFloor = this.floor.toString().padStart(1, "0"); // Remove leading zero padding for floor
-//     const paddedRoomNumber = this.roomNumber.toString().padStart(2, "0");
-//     this._id = `${this.block}${paddedFloor}${paddedRoomNumber}`;
-//   }
-//   next();
-// });
+// Define a virtual property for customId
+roomSchema.virtual("customId").get(function () {
+  return `${this.block}${this.floor * 100 + this.roomNumber}`;
+});
 
-module.exports = mongoose.model("Room", roomSchema);
+// Include virtuals when converting to JSON or calling toJSON()
+roomSchema.set("toJSON", { virtuals: true });
+
+// Include virtuals when calling toObject()
+roomSchema.set("toObject", { virtuals: true });
+
+export default mongoose.model("Room", roomSchema);

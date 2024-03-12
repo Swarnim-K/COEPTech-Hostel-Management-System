@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
-const Student = require("../models/studentSchema");
-const Room = require("../models/roomSchema");
+import mongoose from "mongoose";
+import Student from "../models/studentSchema.js";
+import Room from "../models/roomSchema.js";
 
 main().catch((err) => console.log(err));
 
@@ -84,6 +84,7 @@ async function seedRooms() {
   console.log(rooms);
 
   mongoose.connection.close();
+  process.exit(0);
 }
 
 seedRooms();

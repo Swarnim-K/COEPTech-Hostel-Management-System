@@ -1,13 +1,13 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
   name: {
     type: String,
     required: true,
   },
-  mis: {
-    type: Number,
+  username: {
+    type: String,
     required: true,
     unique: true,
   },
@@ -17,10 +17,9 @@ const studentSchema = new Schema({
   },
 });
 
-// Set `_id` field value to `mis` value
-// studentSchema.pre("validate", function (next) {
-//   this._id = this.mis;
-//   next();
-// });
+studentSchema.path("room").get(function (value) {
+  if (!value) return value;
+  return value.customId || value;
+});
 
-module.exports = mongoose.model("Student", studentSchema);
+export default mongoose.model("Student", studentSchema);

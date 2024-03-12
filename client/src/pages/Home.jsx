@@ -1,14 +1,12 @@
-import StudentFinder from "../components/Home/StudentFinder";
-import FeaturesComponent from "../components/FeatureComponent";
+import StudentFinder from '../components/Home/StudentFinder';
+import FeaturesComponent from '../components/FeatureComponent';
 
 function Home() {
-    return (
-        <>
-            {/* <StudentFinder /> */}
-            <FeaturesComponent />
-
-        </>
-    );
+  return (
+    <>
+      <FeaturesComponent />
+    </>
+  );
 }
 
 export default Home;

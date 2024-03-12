@@ -5,6 +5,8 @@ import GuestLogin from './components/Guest.jsx';
 import Home from './pages/Home.jsx';
 import FeatureComponent from './components/FeatureComponent'
 import StudentForm from './components/StudentForm.jsx';
+import GuestRegistration from './components/GuestRegistration.jsx';
+import AdminRegistration from './components/AdminRegistration.jsx';
 
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path="/guest-login" element={<GuestLogin />} />
         <Route path="/admin-info" element={<FeatureComponent />} />
         <Route path="/admit-student" element={<StudentForm />} />
+        <Route path="/guest-register" element={<GuestRegistration />} />
+        <Route path="/admin-register" element={<AdminRegistration />} />
       </Routes>
     </BrowserRouter>
   );

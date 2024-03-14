@@ -1,0 +1,55 @@
+.room-allocation-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .students-list,
+  .rooms-list {
+    width: 45%;
+  }
+  
+  .students-list {
+    margin-right: 20px;
+  }
+  
+  .rooms-list {
+    margin-left: 20px;
+  }
+  
+  .list-title {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .student-item,
+  .room-item {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .room-item:hover,
+  .student-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .add-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .add-button:hover {
+    background-color: #0056b3;
+  }
+  

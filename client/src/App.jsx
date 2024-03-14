@@ -7,6 +7,7 @@ import FeatureComponent from './components/FeatureComponent'
 import StudentForm from './components/StudentForm.jsx';
 import GuestRegistration from './components/GuestRegistration.jsx';
 import AdminRegistration from './components/AdminRegistration.jsx';
+import RoomAllocation from './components/RoomAllocation.jsx';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/admit-student" element={<StudentForm />} />
         <Route path="/guest-register" element={<GuestRegistration />} />
         <Route path="/admin-register" element={<AdminRegistration />} />
+        <Route path="/room-allocate" element={<RoomAllocation />} />
       </Routes>
     </BrowserRouter>
   );

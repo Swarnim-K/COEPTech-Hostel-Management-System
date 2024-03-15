@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // import UserCards from './components/Usercard.jsx';
 import AdminLogin from './components/Admin.jsx';
@@ -24,6 +25,18 @@ function App() {
         <Route path="/room-allocate" element={<RoomAllocation />} />
       </Routes>
     </BrowserRouter>
+=======
+import { Outlet } from 'react-router-dom';
+import './App.css';
+import Header from './components/Header';
+
+function App() {
+  return (
+    <>
+      <Header />
+      <Outlet />;
+    </>
+>>>>>>> redux-auth
   );
 }
 

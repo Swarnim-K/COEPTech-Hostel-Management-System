@@ -1,6 +1,6 @@
 .features-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Creates a 3-column layout */
+  grid-template-columns: repeat(2, 1fr); /* Creates a 3-column layout */
   gap: 20px;
   justify-content: center;
   background-color: #fff;
@@ -14,8 +14,8 @@
   color: #fff; /* White text */
   padding: 20px;
   border-radius: 10px;
-  width: 300px; /* Adjust width as needed */
-  height: 150px; /* Increased height */
+  width: 100%; /* Adjust width as needed */
+  height: max-content; /* Increased height */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Helps distribute content evenly */

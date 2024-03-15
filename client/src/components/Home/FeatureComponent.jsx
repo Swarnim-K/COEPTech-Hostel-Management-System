@@ -26,6 +26,7 @@ const FeaturesComponent = () => {
         const response = await axios.post('/api/students', {
           username: username,
         });
+        console.log(response.data);
         setStudentData(response.data);
         setError(null);
       } catch (error) {
@@ -50,11 +51,23 @@ const FeaturesComponent = () => {
       </div>
       <div className="features-container">
         {studentData ? (
-          <div className="feature-card">
-            <h3>{studentData.name}</h3>
-            <p>MIS: {studentData.username}</p>
-            <p>Room: {studentData.room.customId}</p>
-          </div>
+          <>
+            <div className="feature-card">
+              <h3>{studentData.name}</h3>
+              <p>MIS: {studentData.username}</p>
+            </div>
+            <div className="feature-card">
+              <h3>{studentData.room.customId}</h3>
+              <h4>Roommates:</h4>
+              <ul>
+                {studentData.room.members.map(member => (
+                  <li key={member._id}>
+                    Name: {member.name}, MIS: {member.username}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
         ) : error ? (
           <div className="feature-card">
             <p>{error}</p>

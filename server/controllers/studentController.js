@@ -44,7 +44,14 @@ const getStudent = expressAsyncHandler(async (req, res) => {
     const username = req.body.username;
     const student = await Student.findOne({
       username: username,
-    }).populate("room");
+    }).populate({
+      path: "room",
+      populate: {
+        path: "members",
+        match: { username: { $ne: username } }, // Exclude the searched student
+        select: "name username -_id", // Select only name and username fields
+      },
+    });
 
     // Check if student exists
     if (!student) {

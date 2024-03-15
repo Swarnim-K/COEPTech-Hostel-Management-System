@@ -1,5 +1,4 @@
-import StudentFinder from '../components/Home/StudentFinder';
-import FeaturesComponent from '../components/FeatureComponent';
+import FeaturesComponent from '../components/Home/FeatureComponent';
 
 function Home() {
   return (

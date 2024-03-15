@@ -12,13 +12,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
-import AdminLogin from './components/AdminLogin.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Home />} />
-      <Route path="/login" element={<AdminLogin />} />
+      <Route path="/login" element={<LoginPage />} />
     </Route>,
   ),
 );

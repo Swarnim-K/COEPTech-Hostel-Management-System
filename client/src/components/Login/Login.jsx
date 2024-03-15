@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoginMutation } from '../slices/usersApiSlice';
-import { setCredentials } from '../slices/authSlice';
+import { useLoginMutation } from '../../slices/usersApiSlice';
+import { setCredentials } from '../../slices/authSlice';
 import { toast } from 'react-toastify';
-import './AdminLogin.css';
+import './Login.css';
 // Make sure the path is correct
 
-const AdminLogin = () => {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -63,4 +63,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default Login;

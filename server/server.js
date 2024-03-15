@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import dotenv from "dotenv";
+import chalk from "chalk"; // Import chalk for colored console logs
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 
@@ -23,8 +24,10 @@ import studentRouter from "./routes/studentRoutes.js";
 import roomRouter from "./routes/roomRoutes.js";
 
 main()
-  .then(() => console.log("Connected successfully to Hostel database"))
-  .catch((err) => console.log(err));
+  .then(() =>
+    console.log(chalk.green("Connected successfully to Hostel database"))
+  )
+  .catch((err) => console.log(chalk.red(err))); // Color the error log in red
 
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/Hostel");
@@ -47,5 +50,5 @@ app.use(notFound);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
+  console.log(chalk.blue(`Listening at http://localhost:${port}`)); // Color the listening message in blue
 });

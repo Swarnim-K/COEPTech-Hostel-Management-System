@@ -8,7 +8,7 @@ import Room from "../models/roomSchema.js";
 const getStudents = expressAsyncHandler(async (req, res) => {
   if (req.body.username) {
     const username = req.body.username;
-    const student = await Student.find({
+    const student = await Student.findOne({
       username: username,
     }).populate("room");
     res.status(200).json(student);

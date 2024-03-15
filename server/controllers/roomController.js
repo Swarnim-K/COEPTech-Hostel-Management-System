@@ -5,10 +5,10 @@ import Room from "../models/roomSchema.js";
 //@desc Get user profile
 //@route GET /api/users/profile
 //@access Private
-const getRooms = expressAsyncHandler(async (req, res) => {
+const getRoom = expressAsyncHandler(async (req, res) => {
   if (req.body.customId) {
     const customId = req.body.customId;
-    const room = await Room.find({
+    const room = await Room.findOne({
       block: customId[0],
       floor: customId[1],
       roomNumber: customId[3],
@@ -20,4 +20,4 @@ const getRooms = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export { getRooms };
+export { getRoom };

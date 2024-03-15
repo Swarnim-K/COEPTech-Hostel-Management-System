@@ -1,68 +1,67 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from React Router
-import './FeaturesComponent.css'; 
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './FeaturesComponent.css';
 
 const FeaturesComponent = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState('');
+  const [studentData, setStudentData] = useState(null);
+  const [error, setError] = useState(null);
+  let typingTimer;
 
-  const features = [
-    {
-      icon: '🎓',
-      title: 'Admit Student',
-      description: 'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
-      path: '/admit-student' // Specify the path for Admit Student page
-    },
-    {
-      icon: '🔍',
-      title: 'Search Student',
-      description: 'Experience unmatched durability that goes above and beyond with lasting investment.',
-      path: '/search-student' // Specify the path for Search Student page
-    },
-    {
-      icon: '📊',
-      title: 'Room data',
-      description: 'Efficiently plan and manage events with our intuitive scheduling system.',
-      path: '/room-data' // Specify the path for Room Data page
-    },
-    {
-      icon: '📤',
-      title: 'Export Data',
-      description: 'Efficiently plan and manage events with our intuitive scheduling system.',
-      path: '/export-data' // Specify the path for Export Data page
-    },
-    {
-      icon: '🏠',
-      title: 'Guest Room',
-      description: 'Efficiently plan and manage events with our intuitive scheduling system.',
-      path: '/guest-room' // Specify the path for Guest Room page
-    },
-    {
-      icon: '🔧', 
-      title: 'Room Maintenance',
-      description: 'Efficiently plan and manage events with our intuitive scheduling system.',
-      path: '/room-maintenance' // Specify the path for Room Maintenance page
-    },
-  ];
+  const handleInputChange = e => {
+    clearTimeout(typingTimer);
+    const input = e.target.value;
+    setSearchInput(input);
 
-  const handleClick = (path) => {
-    navigate(path); // Navigate to the specified path when the card is clicked
+    typingTimer = setTimeout(() => {
+      fetchData(input.trim());
+    }, 500);
+  };
+
+  const fetchData = async username => {
+    if (username) {
+      try {
+        const response = await axios.post('/api/students', {
+          username: username,
+        });
+        setStudentData(response.data);
+        setError(null);
+      } catch (error) {
+        setStudentData(null);
+        setError('An error occurred while fetching student data.');
+      }
+    } else {
+      setStudentData(null);
+      setError(null);
+    }
   };
 
   return (
     <>
-        <div className="sticky-search-bar">
-            <input type="text" placeholder="Search by MIS, Name, Room number" />
-        </div>
-        <div className="features-container">
-        {features.map((feature, index) => (
-          <div className="feature-card" key={index} onClick={() => handleClick(feature.path)}>
-            <div className="icon">{feature.icon}</div>
-            <h3>{feature.title}</h3>
-            <p>{feature.description}</p>
+      <div className="sticky-search-bar">
+        <input
+          type="text"
+          placeholder="Search by MIS, Name, Room number"
+          value={searchInput}
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="features-container">
+        {studentData ? (
+          <div className="feature-card">
+            <h3>{studentData.name}</h3>
+            <p>MIS: {studentData.username}</p>
+            <p>Room: {studentData.room.customId}</p>
           </div>
-        ))}
-        </div>
-    </>    
+        ) : error ? (
+          <div className="feature-card">
+            <p>{error}</p>
+          </div>
+        ) : null}
+      </div>
+    </>
   );
 };
 

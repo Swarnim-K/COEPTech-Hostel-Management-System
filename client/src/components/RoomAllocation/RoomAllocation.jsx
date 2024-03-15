@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RoomAllocation.css';
 
 // Dummy data
@@ -25,8 +25,8 @@ const dummyRooms = [
 ];
 
 const RoomAllocation = () => {
-  const [students, setStudents] = useState(dummyStudents);
-  const [rooms, setRooms] = useState(dummyRooms);
+  const [students, setStudents] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [searchStudentId, setSearchStudentId] = useState('');
   const [selectedRoomId, setSelectedRoomId] = useState(null); // Selected room ID
   const [allocationMessage, setAllocationMessage] = useState(''); // Allocation message
@@ -38,10 +38,14 @@ const RoomAllocation = () => {
 
     allocatedRooms.forEach(room => {
       if (room.id === selectedRoomId) {
-        const studentIndex = students.findIndex(student => student.id === parseInt(searchStudentId));
+        const studentIndex = students.findIndex(
+          student => student.id === parseInt(searchStudentId),
+        );
         if (studentIndex !== -1 && room.students.length < room.capacity) {
           room.students.push(students[studentIndex]);
-          setStudents(prevStudents => prevStudents.filter((_, index) => index !== studentIndex));
+          setStudents(prevStudents =>
+            prevStudents.filter((_, index) => index !== studentIndex),
+          );
           setAllocationMessage(`Allocated student to Room ${room.number}`);
         } else {
           setAllocationMessage(`Room ${room.number} is at capacity`);
@@ -56,15 +60,19 @@ const RoomAllocation = () => {
 
   // Function to filter students based on search input
   const filteredStudents = students.filter(student =>
-    student.id.toString().startsWith(searchStudentId)
+    student.id.toString().startsWith(searchStudentId),
   );
 
   // Function to handle allocating a student to the specified room
   const allocateStudentToRoom = studentId => {
-    const studentIndex = students.findIndex(student => student.id === parseInt(studentId));
+    const studentIndex = students.findIndex(
+      student => student.id === parseInt(studentId),
+    );
     if (studentIndex !== -1) {
       const allocatedStudent = students[studentIndex];
-      setStudents(prevStudents => prevStudents.filter((_, index) => index !== studentIndex));
+      setStudents(prevStudents =>
+        prevStudents.filter((_, index) => index !== studentIndex),
+      );
 
       const updatedRooms = rooms.map(room => {
         if (room.id === selectedRoomId) {
@@ -78,13 +86,23 @@ const RoomAllocation = () => {
 
   // Function to render each student with disabled state if the room is at capacity
   const renderStudent = student => {
-    const isRoomFull = rooms.some(room => room.id === selectedRoomId && room.students.length >= room.capacity);
+    const isRoomFull = rooms.some(
+      room =>
+        room.id === selectedRoomId && room.students.length >= room.capacity,
+    );
     return (
-      <div key={student.id} onClick={() => {
-        if (!isRoomFull) {
-          allocateStudentToRoom(student.id);
-        }
-      }} style={{ cursor: isRoomFull ? 'not-allowed' : 'pointer', color: isRoomFull ? 'gray' : 'inherit' }}>
+      <div
+        key={student.id}
+        onClick={() => {
+          if (!isRoomFull) {
+            allocateStudentToRoom(student.id);
+          }
+        }}
+        style={{
+          cursor: isRoomFull ? 'not-allowed' : 'pointer',
+          color: isRoomFull ? 'gray' : 'inherit',
+        }}
+      >
         {student.name}
       </div>
     );
@@ -115,10 +133,14 @@ const RoomAllocation = () => {
             {rooms.map(room => (
               <li key={room.id}>
                 Room {room.number}{' '}
-                <button onClick={() => {
-                  setSelectedRoomId(room.id);
-                  setAllocationMessage(`Allocating to Room ${room.number}`);
-                }}>Allocate</button>
+                <button
+                  onClick={() => {
+                    setSelectedRoomId(room.id);
+                    setAllocationMessage(`Allocating to Room ${room.number}`);
+                  }}
+                >
+                  Allocate
+                </button>
               </li>
             ))}
           </ul>

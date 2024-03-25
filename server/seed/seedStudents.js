@@ -14,8 +14,6 @@ async function seedStudents() {
   const students_seed = [
     { name: "Abhinav Kurule", username: "112103004" },
     { name: "Gaurish Dodke", username: "112103039" },
-    { name: "Snehasish Bose", username: "112103027" },
-    { name: "Swarnim Kamble", username: "112105030" },
   ];
 
   roomE207.members = await Student.insertMany(students_seed);
@@ -28,8 +26,6 @@ async function seedStudents() {
 
   Abhinav.room = roomE207;
   Gaurish.room = roomE207;
-  Snehasish.room = roomE207;
-  Swarnim.room = roomE207;
 
   await Abhinav.save();
   await Gaurish.save();
@@ -37,6 +33,9 @@ async function seedStudents() {
   await Swarnim.save();
 
   console.log(roomE207);
+
+  mongoose.connection.close();
+  process.exit(0);
 }
 
 seedStudents();

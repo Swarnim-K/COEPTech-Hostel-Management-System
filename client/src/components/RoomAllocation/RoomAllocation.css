@@ -1,55 +1,85 @@
+:root {
+  --student-card-height: 4em;
+  --student-card-width: 15em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .room-allocation-container {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  .students-list,
-  .rooms-list {
-    width: 45%;
-  }
-  
-  .students-list {
-    margin-right: 20px;
-  }
-  
-  .rooms-list {
-    margin-left: 20px;
-  }
-  
-  .list-title {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .student-item,
-  .room-item {
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  .room-item:hover,
-  .student-item:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
-  }
-  
-  .add-button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .add-button:hover {
-    background-color: #0056b3;
-  }
-  
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #1d2125;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  padding: 2rem;
+  bottom: 0;
+}
+
+.room-allocation-column-outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.room-allocation-column-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  background-color: #00000026;
+  border-radius: 1rem;
+}
+
+.room-allocation-column-heading {
+  color: #b6c2cf;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 1rem;
+  text-transform: uppercase;
+}
+
+.student-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000026;
+  border-radius: 1rem;
+  margin: 0.3rem 0;
+  padding: 1rem;
+  color: #b6c2cf;
+  width: var(--student-card-width);
+  height: var(--student-card-height);
+}
+
+.room-holder-card {
+  text-align: center;
+  width: max-content;
+  background-color: #00000026;
+  border-radius: 1rem;
+  margin: 0.2rem 0;
+  padding: 1rem;
+}
+
+.room-holder-card-title {
+  color: #b6c2cf;
+}
+
+.student-holding-space {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: var(--student-card-width);
+  height: var(--student-card-height);
+  border-radius: 1rem;
+  margin: 1rem 0;
+  background-color: #9e9e9ed0;
+}

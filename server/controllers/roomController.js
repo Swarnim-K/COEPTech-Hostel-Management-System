@@ -20,4 +20,9 @@ const getRoom = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export { getRoom };
+const getRooms = expressAsyncHandler(async (req, res) => {
+  const rooms = await Room.find().populate("members");
+  res.status(200).json(rooms);
+});
+
+export { getRoom, getRooms };

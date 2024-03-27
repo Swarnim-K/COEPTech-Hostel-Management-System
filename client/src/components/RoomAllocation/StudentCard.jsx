@@ -14,7 +14,7 @@ const StudentCard = ({ student, index }) => {
             {...provided.dragHandleProps}
             className="student-card"
           >
-            {student.name}
+            {student.username} | {student.name}
           </div>
         )}
       </Draggable>

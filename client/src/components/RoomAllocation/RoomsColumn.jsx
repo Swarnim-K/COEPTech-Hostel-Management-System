@@ -4,20 +4,7 @@ import RoomCard from './RoomCard';
 import './RoomAllocation.css';
 import axios from 'axios';
 
-const RoomsColumn = () => {
-  const [rooms, setRooms] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('/api/rooms')
-      .then(res => {
-        setRooms(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
-
+const RoomsColumn = ({ rooms }) => {
   return (
     <div className="room-allocation-column-outer">
       <div className="room-allocation-column-inner">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './RoomAllocation.css';
+import StudentCard from './StudentCard';
 
 const StudentHoldingSpace = ({ room, index }) => {
   return (
@@ -12,6 +13,9 @@ const StudentHoldingSpace = ({ room, index }) => {
             {...provided.droppableProps}
             className="student-holding-space"
           >
+            {room.members.map((student, index) => (
+              <StudentCard key={student._id} student={student} index={index} />
+            ))}
             {provided.placeholder}
           </div>
         )}

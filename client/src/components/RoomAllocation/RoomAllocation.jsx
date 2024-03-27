@@ -1,11 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd';
 import axios from 'axios';
 import './RoomAllocation.css';
 import StudentsColumn from './StudentsColumn';
 import RoomsColumn from './RoomsColumn';
 
 const RoomAllocation = () => {
+  const [students, setStudents] = useState([]);
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios
+      .get('/api/students?withoutRoom=true')
+      .then(res => {
+        setStudents(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    axios
+      .get('/api/rooms')
+      .then(res => {
+        setRooms(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const onDragEnd = result => {
     const { source, destination, draggableId } = result;
 
@@ -24,6 +51,9 @@ const RoomAllocation = () => {
       })
       .then(res => {
         console.log(res.data);
+        if (res.status === 200) {
+          fetchData(); // Update data after successful drag and drop
+        }
       })
       .catch(err => {
         console.log(err);
@@ -33,8 +63,8 @@ const RoomAllocation = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="room-allocation-container">
-        <StudentsColumn key={'students-column'} />
-        <RoomsColumn key={'rooms-column'} />
+        <StudentsColumn students={students} />
+        <RoomsColumn rooms={rooms} />
       </div>
     </DragDropContext>
   );

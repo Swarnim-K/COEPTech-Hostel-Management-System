@@ -86,7 +86,12 @@ const getStudents = expressAsyncHandler(async (req, res) => {
         .json({ message: "Unauthorized: Only admins can access student data" });
     }
 
-    const students = await Student.find({});
+    let filter = {};
+    if (req.query.withoutRoom) {
+      filter = { room: { $exists: false } };
+    }
+
+    const students = await Student.find(filter);
     res.status(200).json(students);
   } catch (error) {
     console.error("Error verifying JWT token:", error);
@@ -121,20 +126,29 @@ const putStudentInRoom = expressAsyncHandler(async (req, res) => {
     const studentId = req.body.student;
     const roomId = req.body.room;
 
-    const student = await Student.findOneAndUpdate(
-      { _id: studentId },
-      { room: roomId },
-      { new: true }
-    );
+    const room = await Room.findOne({ _id: roomId });
 
-    const room = await Room.findOneAndUpdate(
-      { _id: roomId },
-      { $push: { members: studentId } },
-      { new: true }
-    );
+    if (room.members.length == 4) {
+      return res.status(400).json({ message: "Room is full" });
+    }
 
-    await student.save();
-    await room.save();
+    const student = await Student.findOne({ _id: studentId });
+    if (student.room) {
+      await Room.findOneAndUpdate(
+        { _id: student.room },
+        { $pull: { members: studentId } }
+      );
+      student.room = roomId;
+      room.members.push(studentId);
+
+      await student.save();
+      await room.save();
+    } else {
+      student.room = roomId;
+      room.members.push(studentId);
+      await student.save();
+      await room.save();
+    }
 
     if (!student) {
       return res.status(404).json({ message: "Student not found" });

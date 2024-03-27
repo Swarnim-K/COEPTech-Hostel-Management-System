@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+import fs from "fs";
+import csvParser from "csv-parser";
 import Student from "../models/studentSchema.js";
-import Room from "../models/roomSchema.js";
 
 main().catch((err) => console.log(err));
 
@@ -9,33 +10,47 @@ async function main() {
 }
 
 async function seedStudents() {
-  const roomE207 = await Room.findOne({ block: "E", floor: 2, roomNumber: 7 });
+  const results = [];
 
-  const students_seed = [
-    { name: "Abhinav Kurule", username: "112103004" },
-    { name: "Gaurish Dodke", username: "112103039" },
-  ];
+  fs.createReadStream("tystudentsdata.csv")
+    .pipe(csvParser({ separator: "," })) // Specify the separator as a comma
+    .on("data", (data) => {
+      console.log("Student Data:", data); // Log the data being read
+      results.push(data);
+    })
+    .on("end", async () => {
+      for (const studentData of results) {
+        try {
+          console.log("Student Data:", studentData);
+          // Ensure that the fields are correctly mapped from the CSV data
+          const name = studentData.Name ? studentData.Name.trim() : ""; // Handle undefined value
+          const username = studentData["﻿Username"]
+            ? studentData["﻿Username"].trim()
+            : ""; // Handle undefined value
 
-  roomE207.members = await Student.insertMany(students_seed);
-  await roomE207.save();
+          console.log(`Seeding student ${name}...`);
 
-  const Abhinav = await Student.findOne({ username: "112103004" });
-  const Gaurish = await Student.findOne({ username: "112103039" });
-  const Snehasish = await Student.findOne({ username: "112103027" });
-  const Swarnim = await Student.findOne({ username: "112105030" });
+          if (!name || !username) {
+            console.error(
+              `Error seeding student: Invalid data - Name or Username is missing`
+            );
+            continue; // Skip this student and move to the next one
+          }
 
-  Abhinav.room = roomE207;
-  Gaurish.room = roomE207;
+          const student = new Student({
+            name: name,
+            username: username,
+          });
 
-  await Abhinav.save();
-  await Gaurish.save();
-  await Snehasish.save();
-  await Swarnim.save();
-
-  console.log(roomE207);
-
-  mongoose.connection.close();
-  process.exit(0);
+          await student.save();
+          console.log(`Student ${student.name} seeded successfully.`);
+        } catch (error) {
+          console.error(`Error seeding student: ${error.message}`);
+        }
+      }
+      mongoose.connection.close();
+      process.exit(0);
+    });
 }
 
 seedStudents();

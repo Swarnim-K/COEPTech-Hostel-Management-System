@@ -11,6 +11,21 @@ const studentSchema = new Schema({
     required: true,
     unique: true,
   },
+  gender: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  branch: {
+    type: String,
+  },
+  year: {
+    type: String,
+  },
   room: {
     type: Schema.Types.ObjectId,
     ref: "Room",

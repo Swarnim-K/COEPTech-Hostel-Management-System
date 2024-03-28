@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
+import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar z-3 bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar expand="lg" collapseOnSelect className="main-header">
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>COEP Hostel Management System</Navbar.Brand>

@@ -1,0 +1,72 @@
+.rooms-section-heading {
+  font-size: 4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
+  margin: 2rem 0;
+  display: block;
+  text-align: center;
+}
+
+.room-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.room-section-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.room-section-card-title {
+  color: #000000;
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+}
+
+.room-section-member-holding-space {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 1rem 1rem 0 0;
+  padding: 1rem;
+  width: 90%;
+  background-color: #ededed;
+}
+
+.room-section-member-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  margin: 0.3rem 0;
+  padding: 0.5rem;
+  color: #000000;
+  width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.room-section-member-name {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.room-section-member-username {
+  font-size: 1.25rem;
+  font-weight: lighter;
+}

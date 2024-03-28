@@ -1,70 +1,115 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './StudentFinder.css';
+import { IoMdCall } from 'react-icons/io';
 
-const StudentFinderCombined = () => {
-  const [searchMIS, setSearchMIS] = useState('');
+const StudentFinder = () => {
+  const [searchInput, setSearchInput] = useState('');
   const [studentData, setStudentData] = useState(null);
   const [error, setError] = useState(null);
-  const [selectedYear, setSelectedYear] = useState('1st');
+  let typingTimer;
 
-  const handleSearch = (event) => {
-    const newSearchMIS = event.target.value;
-    setSearchMIS(newSearchMIS);
+  const handleInputChange = e => {
+    clearTimeout(typingTimer);
+    const input = e.target.value;
+    setSearchInput(input);
+
+    typingTimer = setTimeout(() => {
+      fetchData(input.trim());
+    }, 500);
   };
 
-  const handleYearChange = (year) => {
-    setSelectedYear(year);
-    // Reset the current state when changing years
-    setStudentData(null);
-    setSearchMIS('');
-  };
-
-  useEffect(() => {
-    if (!searchMIS.length) return;
-
-    const fetchData = async () => {
+  const fetchData = async username => {
+    if (username) {
       try {
-        // Modify your API call or data processing to filter by `selectedYear` if necessary
-        const response = await axios.post('http://localhost:8000/api/checkStudent', { mis: searchMIS, year: selectedYear });
-        if (response) {
-          setStudentData(response.data);
-          setError(null);
-        } else {
-          setStudentData(null);
-          setError('No data received or unexpected response structure.');
-        }
+        const response = await axios.post('/api/students', {
+          username: username,
+        });
+        console.log(response.data);
+        setStudentData(response.data);
+        setError(null);
       } catch (error) {
         setStudentData(null);
-        setError('An error occurred while fetching data.');
-        console.error('Error:', error.message);
+        setError('An error occurred while fetching student data.');
       }
-    };
-
-    fetchData();
-  }, [searchMIS, selectedYear]);
+    } else {
+      setStudentData(null);
+      setError(null);
+    }
+  };
 
   return (
-    <div className='studentfindercombined'>
-      <label className="studentfindercombined__searchbar">
-        <input
-          type="search"
-          placeholder="Enter MIS or Room Number"
-          value={searchMIS}
-          onChange={handleSearch}
-        />
-      </label>
-      <div className='studentdata'>
-        {studentData ? (
-          <div className='studentdata__inner'>
-      
+    <>
+      <div className="sticky-search-bar">
+        <div className="search">
+          <div className="bar">
+            <div className="icon">
+              <i></i>
+            </div>
           </div>
+          <form>
+            <input
+              type="text"
+              placeholder="Search by MIS, Name, Room number"
+              value={searchInput}
+              onChange={handleInputChange}
+            ></input>
+          </form>
+          <div className="close"></div>
+        </div>
+      </div>
+
+      <div className="student-finder-result">
+        {studentData ? (
+          <>
+            <div className="result-student-data">
+              <div className="student-data-name">{studentData.name}</div>
+              <div className="student-data-username">
+                {studentData.username}
+              </div>
+              <div className="student-data-phone-email">
+                <div className="student-data-phone">
+                  <a href={`tel:${studentData.phone}`}>
+                    {studentData.phone}
+                    <label>Phone Number</label>
+                  </a>
+                </div>
+
+                <div className="student-data-email">
+                  <a href={`mailto:${studentData.email}`}>
+                    {studentData.email}
+                    <label>Email Address</label>
+                  </a>
+                </div>
+              </div>
+              {studentData.room ? (
+                <div>
+                  <h3 className="room-holder-card-title">
+                    {studentData.room.customId}
+                  </h3>
+
+                  <div className="room-data-holding-space">
+                    {studentData.room.members.map((student, index) => (
+                      <div className="room-data-member-card">
+                        <div className="room-data-member-name">
+                          {student.name}
+                        </div>
+                        <div className="room-data-member-username">
+                          {student.username}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </>
         ) : (
-          <p>{error || 'Please enter an MIS to search for a student or select a year.'}</p>
+          <></>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
-export default StudentFinderCombined;
+export default StudentFinder;

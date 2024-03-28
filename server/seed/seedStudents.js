@@ -27,6 +27,11 @@ async function seedStudents() {
           const username = studentData["﻿Username"]
             ? studentData["﻿Username"].trim()
             : ""; // Handle undefined value
+          const gender = studentData.Gender;
+          const phone = studentData.Phone;
+          const email = studentData.Email;
+          const branch = studentData.Branch;
+          const year = studentData.Year;
 
           console.log(`Seeding student ${name}...`);
 
@@ -40,6 +45,11 @@ async function seedStudents() {
           const student = new Student({
             name: name,
             username: username,
+            gender,
+            phone,
+            email,
+            branch,
+            year,
           });
 
           await student.save();

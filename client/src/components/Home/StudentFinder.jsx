@@ -25,7 +25,6 @@ const StudentFinder = () => {
         const response = await axios.post('/api/students', {
           username: username,
         });
-        console.log(response.data);
         setStudentData(response.data);
         setError(null);
       } catch (error) {

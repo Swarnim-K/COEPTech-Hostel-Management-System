@@ -34,9 +34,9 @@ const Login = () => {
   };
 
   return (
-    <div className="all">
+    <div className="login-page-container">
       <div className="login-container admin">
-        <h2>Login</h2>
+        <h2 className="login-page-heading">Login</h2>
         <form onSubmit={submitHandler}>
           <div className="form-group">
             <input

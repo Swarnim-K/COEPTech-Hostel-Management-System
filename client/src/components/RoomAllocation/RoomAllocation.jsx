@@ -4,10 +4,46 @@ import axios from 'axios';
 import './RoomAllocation.css';
 import StudentsColumn from './StudentsColumn';
 import RoomsColumn from './RoomsColumn';
+import RoomAllocationActionBar from './RoomAllocationActionBar';
+import ErrorHeader from './ErrorHeader';
 
 const RoomAllocation = () => {
   const [students, setStudents] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [error, setError] = useState(null);
+
+  const [selectedStudents, setSelectedStudents] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [filteredStudents, setFilteredStudents] = useState([]); // State to store filtered students
+
+  const addSelectedStudent = student => {
+    if (selectedRoom === null) {
+      setError('Please select a room first');
+    }
+
+    if (selectedStudents.includes(student)) {
+      setSelectedStudents(selectedStudents.filter(s => s !== student));
+      return;
+    }
+
+    if (selectedStudents.length == 4 - selectedRoom.members.length) {
+      setError('Cannot exceed room capacity');
+      return;
+    } else {
+      setSelectedStudents([...selectedStudents, student]);
+    }
+  };
+
+  const addSelectedRoom = room => {
+    if (selectedRoom === room) {
+      setSelectedRoom(null);
+      return;
+    } else {
+      setError(null);
+      setSelectedRoom(null);
+      setSelectedRoom(room);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -18,6 +54,7 @@ const RoomAllocation = () => {
       .get('/api/students?withoutRoom=true')
       .then(res => {
         setStudents(res.data);
+        setFilteredStudents(res.data); // Initialize filtered students with all students
       })
       .catch(err => {
         console.log(err);
@@ -62,10 +99,25 @@ const RoomAllocation = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      <ErrorHeader error={error} />
       <div className="room-allocation-container">
-        <StudentsColumn students={students} />
-        <RoomsColumn rooms={rooms} />
+        <StudentsColumn
+          students={filteredStudents}
+          setFilteredStudents={setFilteredStudents}
+          selectedStudents={selectedStudents}
+          addSelectedStudent={addSelectedStudent}
+          selectedRoom={selectedRoom}
+        />
+        <RoomsColumn addSelectedRoom={addSelectedRoom} rooms={rooms} />
       </div>
+      <RoomAllocationActionBar
+        selectedStudents={selectedStudents}
+        selectedRoom={selectedRoom}
+        addSelectedStudent={addSelectedStudent}
+        addSelectedRoom={addSelectedRoom}
+        updateStudentData={setStudents}
+        updateRoomData={setRooms}
+      />
     </DragDropContext>
   );
 };

@@ -4,14 +4,18 @@ import RoomCard from './RoomCard';
 import './RoomAllocation.css';
 import axios from 'axios';
 
-const RoomsColumn = ({ rooms }) => {
+const RoomsColumn = ({ rooms, addSelectedRoom }) => {
   return (
-    <div className="room-allocation-column-outer">
-      <div className="room-allocation-column-inner">
-        <h2 className="room-allocation-column-heading">Rooms</h2>
-
+    <div className="rooms-column">
+      <h2 className="rooms-column-heading">Rooms</h2>
+      <div className="room-cards">
         {rooms.map((room, index) => (
-          <RoomCard key={room._id} room={room} index={index} />
+          <RoomCard
+            key={room._id}
+            room={room}
+            index={index}
+            addSelectedRoom={addSelectedRoom}
+          />
         ))}
       </div>
     </div>

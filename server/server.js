@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import dotenv from "dotenv";
+import http from "http"; // Import http for creating a web server
+import ngrok from "@ngrok/ngrok"; // Import ngrok for creating a tunnel to the web server
 import chalk from "chalk"; // Import chalk for colored console logs
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
@@ -52,3 +54,29 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(chalk.blue(`Listening at http://localhost:${port}`)); // Color the listening message in blue
 });
+
+// if (process.env.NGROK_AUTHTOKEN) {
+//   http
+//     .createServer((req, res) => {
+//       res.writeHead(200, { "Content-Type": "text/html" });
+//       res.end("Congrats you have created an ngrok web server");
+//     })
+//     .listen(3000, () =>
+//       console.log(`Node.js web server at 3000 is running...`)
+//     );
+
+//   // Get your endpoint online
+//   ngrok
+//     .connect({ addr: 3000, authtoken: process.env.NGROK_AUTHTOKEN })
+//     .then((listener) =>
+//       console.log(`Ingress established at: ${listener.url()}`)
+//     );
+
+//   // Close the ngrok tunnel and the web server when the process is terminated
+//   process.on("SIGINT", () => {
+//     ngrok
+//       .kill()
+//       .then(() => console.log("Ngrok tunnel closed"))
+//       .then(() => process.exit(0));
+//   });
+// }

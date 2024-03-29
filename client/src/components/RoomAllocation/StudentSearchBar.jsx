@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import './RoomAllocation.css';
 
-const StudentSearchBar = () => {
+const StudentSearchBar = ({ students, setFilteredStudents }) => {
   const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = e => {
+    setSearchTerm(e.target.value);
+    const filteredStudents = students.filter(
+      student =>
+        student.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        student.username.toLowerCase().includes(e.target.value.toLowerCase()),
+    );
+    setFilteredStudents(filteredStudents);
+  };
 
   return (
     <div>
@@ -13,7 +23,11 @@ const StudentSearchBar = () => {
           </div>
         </div>
         <form>
-          <input onChange={e => setSearchTerm(e.target.value)}></input>
+          <input
+            value={searchTerm}
+            onChange={handleSearch}
+            placeholder="Search by name or username"
+          ></input>
         </form>
         <div className="close"></div>
       </div>

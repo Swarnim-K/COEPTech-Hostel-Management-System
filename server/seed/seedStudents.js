@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import fs from "fs";
 import csvParser from "csv-parser";
+import User from "../models/userSchema.js";
 import Student from "../models/studentSchema.js";
 
 main().catch((err) => console.log(err));
@@ -53,6 +54,15 @@ async function seedStudents() {
           });
 
           await student.save();
+
+          const user = new User({
+            name: name,
+            username: username,
+            password: "coep@123", // Default password
+            role: "student",
+          });
+
+          await user.save();
           console.log(`Student ${student.name} seeded successfully.`);
         } catch (error) {
           console.error(`Error seeding student: ${error.message}`);

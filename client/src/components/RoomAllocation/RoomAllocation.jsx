@@ -51,7 +51,7 @@ const RoomAllocation = () => {
 
   const fetchData = () => {
     axios
-      .get('/api/students?withoutRoom=true')
+      .get('/api/applications')
       .then(res => {
         setStudents(res.data);
         setFilteredStudents(res.data); // Initialize filtered students with all students
@@ -85,6 +85,17 @@ const RoomAllocation = () => {
       .put(`/api/students`, {
         student: draggableId,
         room: destination.droppableId,
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    axios
+      .put(`/api/applications`, {
+        studentId: draggableId,
       })
       .then(res => {
         console.log(res.data);

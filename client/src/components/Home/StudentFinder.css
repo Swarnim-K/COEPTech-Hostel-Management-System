@@ -24,6 +24,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 1rem 1rem 0 0;
   justify-self: center;
+  margin: auto;
 }
 
 .student-data-name {

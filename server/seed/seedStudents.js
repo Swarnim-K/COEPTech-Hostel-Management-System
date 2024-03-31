@@ -68,6 +68,14 @@ async function seedStudents() {
           console.error(`Error seeding student: ${error.message}`);
         }
       }
+      const admin = new User({
+        name: "Swarnim Kamble",
+        username: "Swarnim",
+        password: "coep@123", // Default password
+        role: "admin",
+      });
+      await admin.save();
+      console.log(`Admin ${admin.name} seeded successfully.`);
       mongoose.connection.close();
       process.exit(0);
     });

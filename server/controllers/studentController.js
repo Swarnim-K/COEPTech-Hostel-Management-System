@@ -29,8 +29,28 @@ const getStudent = expressAsyncHandler(async (req, res) => {
     const { userId } = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
 
     // Fetch user from database to check if they are an admin
-    const user = await User.findOne({ _id: userId });
-    if (!user || user.role !== "admin") {
+    const requestingUser = await User.findOne({ _id: userId });
+    if (requestingUser._id.toString() === req.body.id) {
+      const student = await Student.findOne({
+        username: requestingUser.username,
+      }).populate({
+        path: "room",
+        populate: {
+          path: "members",
+          match: { username: { $ne: requestingUser.username } }, // Exclude the searched student
+          select: "name username -_id", // Select only name and username fields
+        },
+      });
+      return res.status(200).json(student);
+    }
+
+    if (requestingUser._id === req.body.id) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: You cannot access your own data" });
+    }
+
+    if (!requestingUser || requestingUser.role !== "admin") {
       return res
         .status(401)
         .json({ message: "Unauthorized: Only admins can access student data" });

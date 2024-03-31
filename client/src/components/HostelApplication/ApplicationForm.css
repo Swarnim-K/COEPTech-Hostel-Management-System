@@ -1,0 +1,108 @@
+.student-form-container {
+  padding-top: 10vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #ededed;
+  min-height: 100vh;
+  width: 100%;
+  z-index: 0;
+  overflow-x: hidden;
+}
+
+.student-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.student-form h2 {
+  text-align: center;
+  color: #333;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 16px;
+}
+
+.form-field input[type='text'],
+.form-field input[type='email'],
+.form-field select,
+.form-field textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ededed;
+  box-shadow:
+    rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-field input[type='file'] {
+  border: none;
+  padding: 0;
+}
+
+.student-form-submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #455eb5;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  height: 2.5em;
+  cursor: pointer;
+  transition-duration: 0.1s;
+  width: 100%;
+}
+
+student-form-submit-btn:hover {
+  background-color: #0056b3;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition-duration: 0.1s;
+}
+
+.form-field input[type='text']:focus,
+.form-field input[type='email']:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .student-form {
+    width: 90%;
+    padding: 20px;
+  }
+}

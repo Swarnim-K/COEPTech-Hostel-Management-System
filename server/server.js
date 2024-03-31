@@ -24,6 +24,7 @@ const port = process.env.PORT || 8000;
 import userRouter from "./routes/userRoutes.js";
 import studentRouter from "./routes/studentRoutes.js";
 import roomRouter from "./routes/roomRoutes.js";
+import applicationRouter from "./routes/applicationRoutes.js";
 
 main()
   .then(() =>
@@ -43,6 +44,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/users", userRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/rooms", roomRouter);
+app.use("/api/applications", applicationRouter);
 
 app.get("/", (request, response) => {
   response.send("Hello World!");

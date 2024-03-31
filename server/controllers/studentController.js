@@ -2,6 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import Student from "../models/studentSchema.js";
 import Room from "../models/roomSchema.js";
 import User from "../models/userSchema.js"; // Import the User model
+import Application from "../models/applicationSchema.js";
 import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
@@ -143,7 +144,7 @@ const putStudentInRoom = expressAsyncHandler(async (req, res) => {
         .json({ message: "Bad request: Student ID and room ID are required" });
     }
 
-    const studentId = req.body.student;
+    const applicationId = req.body.student;
     const roomId = req.body.room;
 
     const room = await Room.findOne({ _id: roomId });
@@ -152,7 +153,11 @@ const putStudentInRoom = expressAsyncHandler(async (req, res) => {
       return res.status(400).json({ message: "Room is full" });
     }
 
-    const student = await Student.findOne({ _id: studentId });
+    const application = await Application.findOne({
+      _id: applicationId,
+    });
+    const student = await Student.findOne({ username: application.username });
+    const studentId = student._id;
     if (student.room) {
       await Room.findOneAndUpdate(
         { _id: student.room },

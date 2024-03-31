@@ -15,17 +15,16 @@ import HomePage from './pages/HomePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RoomAllocationPage from './pages/RoomAllocationPage.jsx';
 import HostelApplicationPage from './pages/HostelApplicationPage.jsx';
+import AllotmentPage from './pages/AllotmentPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/rooms/allocate" element={<RoomAllocationPage />} />
-      <Route
-        path="/rooms/allocate/register"
-        element={<HostelApplicationPage />}
-      />
+      <Route path="/allocate" element={<RoomAllocationPage />} />
+      <Route path="/allocate/register" element={<HostelApplicationPage />} />
+      <Route path="/allocate/allotment" element={<AllotmentPage />} />
     </Route>,
   ),
 );

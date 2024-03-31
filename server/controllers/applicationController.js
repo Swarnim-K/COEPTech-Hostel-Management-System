@@ -38,9 +38,8 @@ const getApplications = expressAsyncHandler(async (req, res) => {
 });
 
 const updateApplication = expressAsyncHandler(async (req, res) => {
-  const { studentId } = req.body;
-  const student = await Student.findById(studentId);
-  const application = await Application.findOne({ username: student.username });
+  const applicationId = req.body.studentId;
+  const application = await Application.findOne({ _id: applicationId });
   application.allotment.allotmentStatus = true;
   await application.save();
   res.status(200).json(application);

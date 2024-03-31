@@ -10,10 +10,15 @@ async function main() {
 
 async function seedStudentToRoom() {
   try {
-    const students = await Student.find({ gender: "Male" });
+    let students = await Student.find({}).exec(); // Ensure that documents are Mongoose documents
     const rooms = await Room.find();
-
     const maxMembersPerRoom = 4;
+
+    // Shuffle the students array to randomize selection
+    students = shuffleArray(students);
+
+    // Limit to 100 students
+    students = students.slice(0, 100);
 
     for (const student of students) {
       // Shuffle the rooms to randomize assignment
@@ -31,7 +36,9 @@ async function seedStudentToRoom() {
           await student.save();
 
           console.log(
-            `Student ${student.name} assigned to room ${room.block}${room.floor}-${room.roomNumber}`
+            `Student ${student.name} assigned to room ${room.block}${
+              room.floor * 100 + room.roomNumber
+            }`
           );
           break; // Move to the next student
         }

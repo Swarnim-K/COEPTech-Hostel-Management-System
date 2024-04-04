@@ -9,7 +9,7 @@ import './Allotment.css';
 const Allotment = () => {
   const [applications, setApplications] = useState([]);
   const [branchWiseApplications, setBranchWiseApplications] = useState([]);
-  const [allotments, setAllotments] = useState([]);
+  const [allotments, setAllotments] = useState({});
   const [branch, setBranch] = useState('Civil Engineering');
   const [branches, setBranches] = useState([]);
 
@@ -32,6 +32,13 @@ const Allotment = () => {
         // Extract unique branches from applications
         const uniqueBranches = [...new Set(res.data.map(app => app.branch))];
         setBranches(uniqueBranches);
+
+        // Initialize allotments for each branch with an empty array
+        const initialAllotments = {};
+        res.data.forEach(app => {
+          initialAllotments[app.branch] = [];
+        });
+        setAllotments(initialAllotments);
       })
       .catch(err => {
         console.log(err);
@@ -46,36 +53,28 @@ const Allotment = () => {
     }
 
     if (
-      source.droppableId === 'allotment-column' &&
-      destination.droppableId === 'allotment-column'
-    ) {
-      const newAllotments = Array.from(allotments);
-      const [removed] = newAllotments.splice(source.index, 1); // Remove the dragged item from the array
-      newAllotments.splice(destination.index, 0, removed); // Insert the dragged item at the destination index
-      setAllotments(newAllotments); // Update the state with the new array order
-    }
-
-    if (
       source.droppableId === 'applicants-column' &&
       destination.droppableId === 'allotment-column'
     ) {
-      // Determine the index to insert the dragged item into
-      let newIndex = destination.index;
-      if (newIndex > source.index) {
-        // If the destination index is greater than the source index,
-        // adjust the index to insert the dragged item after the destination index
-        newIndex -= 1;
+      // Get the dragged applicant
+      const draggedApplicant = applications.find(
+        applicant => applicant._id === draggableId,
+      );
+      if (!draggedApplicant) {
+        return;
       }
 
-      // Remove the dragged item from applications and add it to allotments
-      const newApplications = Array.from(applications);
-      const [removed] = newApplications.splice(source.index, 1); // Remove the dragged item from applications
+      // Remove the dragged item from applications
+      const newApplications = applications.filter(
+        applicant => applicant._id !== draggableId,
+      );
       setApplications(newApplications); // Update the state of applications
 
-      // Update the state of allotments by inserting the removed item at the determined index
+      // Update the state of allotments by adding the dragged applicant to its corresponding branch array
       setAllotments(prevAllotments => {
-        const newAllotments = [...prevAllotments];
-        newAllotments.splice(newIndex, 0, removed);
+        const branch = draggedApplicant.branch;
+        const newAllotments = { ...prevAllotments };
+        newAllotments[branch] = [...prevAllotments[branch], draggedApplicant];
         return newAllotments;
       });
     }

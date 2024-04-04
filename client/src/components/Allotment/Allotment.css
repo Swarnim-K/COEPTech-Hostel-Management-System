@@ -1,6 +1,42 @@
 .allotment-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   background-color: #f1f1f1;
   min-height: 100vh;
+  padding: 2em;
+}
+
+.allotment-columns {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 2em;
+}
+
+.branch-selector {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 2em;
+  padding: 0 2em;
+}
+
+.branch-selector label {
+  font-size: 1.2em;
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  margin-right: 1em;
+}
+
+.branch-selector select {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5em;
+  font-size: 1.2em;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
 }

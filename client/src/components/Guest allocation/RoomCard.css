@@ -46,7 +46,7 @@
     margin-top: 1rem;
   }
   
-  /* Style the Allocate Room button */
+ 
   .guest-room-card-details button {
     background-color: #455eb5;
     color: #ffffff;
@@ -123,3 +123,59 @@
     color: #999;
   }
   
+.allocation-form select {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.3rem;
+  appearance: none; 
+  background-color: #fff;
+  background-image: linear-gradient(45deg, transparent 50%, #455eb5 50%), linear-gradient(135deg, #455eb5 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+  background-size: 10px 10px, 10px 10px;
+  background-repeat: no-repeat;
+}
+
+.allocation-form select:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+.guest-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 1000; 
+}
+
+.guest-details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.guest-details p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.guest-details button {
+  background-color: #455eb5;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.guest-details button:hover {
+  background-color: #0056b3;
+}

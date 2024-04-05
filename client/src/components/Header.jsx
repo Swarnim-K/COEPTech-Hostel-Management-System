@@ -1,12 +1,12 @@
-// import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
-import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
-import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { FaSignInAlt } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import './Header.css';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -39,14 +39,15 @@ const Header = () => {
               {userInfo ? (
                 <>
                   <NavDropdown title={userInfo.name} id="username">
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                   </NavDropdown>
+                  <LinkContainer to="/Guesthome">
+                    <Nav.Link>Guest Allocation</Nav.Link>
+                  </LinkContainer>
                 </>
               ) : (
                 <>
-                  <LinkContainer to="login">
+                  <LinkContainer to="/login">
                     <Nav.Link>
                       <FaSignInAlt /> Sign In
                     </Nav.Link>

@@ -13,7 +13,7 @@ async function main() {
 async function seedStudents() {
   const results = [];
 
-  fs.createReadStream("tystudentsdata.csv")
+  fs.createReadStream("C:/Users/anant/OneDrive/Desktop/heck/COEPTech_Hostel_Management_System/server/seed/tystudentsdata.csv")
     .pipe(csvParser({ separator: "," })) // Specify the separator as a comma
     .on("data", (data) => {
       console.log("Student Data:", data); // Log the data being read

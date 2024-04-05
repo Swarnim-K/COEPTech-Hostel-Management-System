@@ -16,6 +16,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RoomAllocationPage from './pages/RoomAllocationPage.jsx';
 import HostelApplicationPage from './pages/HostelApplicationPage.jsx';
 import AllotmentPage from './pages/AllotmentPage.jsx';
+import GuestHome from './components/Guest allocation/GuestHome.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
       <Route path="/allocate" element={<RoomAllocationPage />} />
       <Route path="/allocate/register" element={<HostelApplicationPage />} />
       <Route path="/allocate/allotment" element={<AllotmentPage />} />
+      <Route path="/Guesthome" element={<GuestHome />} />
     </Route>,
   ),
 );

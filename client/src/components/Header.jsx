@@ -34,6 +34,11 @@ const Header = () => {
             <Navbar.Brand>COEP Hostel Management System</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <LinkContainer to="/allotment">
+            <Nav.Link>
+              Allotment <FaSignInAlt />
+            </Nav.Link>
+          </LinkContainer>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               {userInfo ? (

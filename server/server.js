@@ -46,10 +46,6 @@ app.use("/api/students", studentRouter);
 app.use("/api/rooms", roomRouter);
 app.use("/api/applications", applicationRouter);
 
-app.get("/", (request, response) => {
-  response.send("Hello World!");
-});
-
 app.use(notFound);
 app.use(errorHandler);
 

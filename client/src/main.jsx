@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/allocate" element={<RoomAllocationPage />} />
       <Route path="/allocate/register" element={<HostelApplicationPage />} />
-      <Route path="/allocate/allotment" element={<AllotmentPage />} />
+      <Route path="/allotment/:round/:year" element={<AllotmentPage />} />
     </Route>,
   ),
 );

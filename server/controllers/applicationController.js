@@ -31,10 +31,25 @@ const createApplication = expressAsyncHandler(async (req, res) => {
 });
 
 const getApplications = expressAsyncHandler(async (req, res) => {
-  const applications = await Application.find({
-    "allotment.allotmentStatus": false,
-  });
-  res.status(200).json(applications);
+  if (req.query.year) {
+    let year = req.query.year;
+    if (req.query.year === "tybtech") {
+      year = "T.Y.B.Tech";
+    } else if (req.query.year === "fybtech") {
+      year = "F.Y.B.Tech";
+    } else if (req.query.year === "sybtech") {
+      year = "S.Y.B.Tech";
+    } else if (req.query.year === "btech") {
+      year = "B.Tech";
+    } else {
+      return res.status(400);
+    }
+    const applications = await Application.find({
+      year: year,
+      "allotment.allotmentStatus": false,
+    });
+    res.status(200).json(applications);
+  }
 });
 
 const updateApplication = expressAsyncHandler(async (req, res) => {

@@ -1,6 +1,67 @@
+:root {
+  --width-small: 75px;
+  --width-medium: 150px;
+  --width-large: 200px;
+}
+
 .allotment-column {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+.applicants-holding-space {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  background-color: #ededed;
+  width: 100%;
+  min-height: calc((var(--student-card-height)) * 4 * 1.25);
+}
+
+.holding-space-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #ededed;
+  box-shadow:
+    rgb(237, 237, 237) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.holding-space-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.holding-space-header-small {
+  width: var(--width-small);
+}
+
+.holding-space-header-medium {
+  width: var(--width-medium);
+}
+
+.holding-space-header-large {
+  width: var(--width-large);
+}
+
+.seat-category input {
+  width: 70%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
 }

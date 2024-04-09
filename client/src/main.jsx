@@ -25,17 +25,35 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/allocate" element={<RoomAllocationPage />} />
       <Route path="/allocate/register" element={<HostelApplicationPage />} />
-      <Route path="/allocate/allotment" element={<AllotmentPage />} />
-      <Route path="/Guesthome" element={<GuestHome />} />
+      <Route path="/allotment/:round/:year" element={<AllotmentPage />} />
     </Route>,
   ),
 );
 
+// Function to set the page title dynamically
+const setPageTitle = () => {
+  const { pathname } = window.location;
+  let title = 'COEP Tech Hostel'; // Set your default title here
+
+  // Set title based on the current pathname
+  if (pathname === '/') {
+    title = 'Home Page';
+  } else if (pathname === '/login') {
+    title = 'Login Page';
+  } else if (pathname === '/allocate') {
+    title = 'Room Allocation Page';
+  } // Add more conditions as needed
+
+  document.title = title; // Set the document title
+};
+
+// Call setPageTitle initially and whenever the route changes
+setPageTitle();
+router.subscribe(setPageTitle);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    {/* <React.StrictMode> */}
     <RouterProvider router={router} />
-    {/* </React.StrictMode> */}
   </Provider>,
 );

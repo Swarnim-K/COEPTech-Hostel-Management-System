@@ -7,7 +7,6 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import './Header.css';
 
-
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,17 +33,20 @@ const Header = () => {
             <Navbar.Brand>COEP Hostel Management System</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <LinkContainer to="/allotment">
-            <Nav.Link>
-              Allotment <FaSignInAlt />
-            </Nav.Link>
-          </LinkContainer>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               {userInfo ? (
                 <>
                   <NavDropdown title={userInfo.name} id="username">
-                    <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                    <LinkContainer to="/allotment">
+                      <NavDropdown.Item>Allotment</NavDropdown.Item>
+                    </LinkContainer>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
                   </NavDropdown>
                   <LinkContainer to="/Guesthome">
                     <Nav.Link>Guest Allocation</Nav.Link>

@@ -1,0 +1,181 @@
+.guest-rooms-section-heading {
+    font-size: 4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    color: #000000;
+    margin: 2rem 0;
+    display: block;
+    text-align: center;
+  }
+  
+  .guest-room-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .guest-room-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .guest-room-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .guest-room-card-title {
+    color: #000000;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .guest-room-card-details {
+    margin-top: 1rem;
+  }
+  
+ 
+  .guest-room-card-details button {
+    background-color: #455eb5;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .guest-room-card-details button:hover {
+    background-color: #0056b3;
+  }
+
+  .allocation-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 400px; 
+    max-width: 90%; 
+}
+  
+  .allocation-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .allocation-form label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .allocation-form input {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.3rem;
+  }
+  
+  .allocation-form button {
+    background-color: #455eb5;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .allocation-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .allocation-form button[type="button"] {
+    background-color: #dc3545;
+    margin-top: 1rem;
+  }
+  .cancel-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .cancel-icon:hover {
+    color: #999;
+  }
+  
+.allocation-form select {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.3rem;
+  appearance: none; 
+  background-color: #fff;
+  background-image: linear-gradient(45deg, transparent 50%, #455eb5 50%), linear-gradient(135deg, #455eb5 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+  background-size: 10px 10px, 10px 10px;
+  background-repeat: no-repeat;
+}
+
+.allocation-form select:focus {
+  outline: none;
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+.guest-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  z-index: 1000; 
+}
+
+.guest-details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.guest-details p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.guest-details button {
+  background-color: #455eb5;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.guest-details button:hover {
+  background-color: #0056b3;
+}

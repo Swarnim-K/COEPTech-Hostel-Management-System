@@ -24,9 +24,11 @@ const Login = () => {
   }, [navigate, userInfo]);
 
   const submitHandler = async e => {
+    console.log("Submit")
     e.preventDefault();
     try {
       const res = await login({ username, password }).unwrap();
+      console.log(res);
       dispatch(setCredentials({ ...res }));
     } catch (err) {
       toast.error(err.data?.message || err.error);

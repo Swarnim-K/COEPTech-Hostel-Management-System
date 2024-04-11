@@ -8,6 +8,7 @@ const HeldApplicantCard = ({
   index,
   removeSelectedApplicant,
   applicantSwitch,
+  parent,
 }) => {
   return (
     <Draggable draggableId={applicant._id} index={index}>
@@ -41,7 +42,9 @@ const HeldApplicantCard = ({
           </div>
 
           <div className="applicant-card-actions">
-            <FaMinus onClick={() => removeSelectedApplicant(applicant)} />
+            <FaMinus
+              onClick={() => removeSelectedApplicant(applicant, parent)}
+            />
           </div>
         </div>
       )}

@@ -6,6 +6,7 @@ import './StudentProfile.css';
 
 const StudentProfile = ({ studentData }) => {
   const [hasRegistered, setHasRegistered] = useState(false);
+  const [allotmentStatus, setAllotmentStatus] = useState('');
 
   const { userInfo } = useSelector(state => state.auth);
 

@@ -37,6 +37,10 @@ const applicationSchema = new Schema(
       type: String,
     },
     allotment: {
+      allotmentId: {
+        type: Schema.Types.ObjectId,
+        ref: "Allotment",
+      },
       allotmentPriority: {
         type: Number,
       },

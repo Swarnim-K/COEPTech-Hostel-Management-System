@@ -53,11 +53,19 @@ const getApplications = expressAsyncHandler(async (req, res) => {
 });
 
 const updateApplication = expressAsyncHandler(async (req, res) => {
-  const applicationId = req.body.studentId;
-  const application = await Application.findOne({ _id: applicationId });
-  application.allotment.allotmentStatus = true;
-  await application.save();
-  res.status(200).json(application);
+  const year = req.params.year;
+  const allotments = req.body;
+  Object.keys(allotments).forEach((branch) => {
+    Object.keys(allotments[branch]).forEach((gender) => {
+      Object.keys(allotments[branch][gender]).forEach((status) => {
+        allotments[branch][gender][status].forEach(async (student) => {
+          console.log(student);
+        });
+      });
+    });
+  });
+
+  res.status(200).json("Application updated successfully!");
 });
 
 export {

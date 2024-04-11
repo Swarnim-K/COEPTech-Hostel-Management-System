@@ -5,6 +5,8 @@ import ApplicantsColumn from './ApplicantsColumn';
 import AllotmentColumn from './AllotmentColumn';
 import './Allotment.css';
 import Refinement from './Refinement';
+import WaitingListColumn from './WaitingListColumn';
+import generateExcel from '../../utilities/generateExcel';
 
 const Allotment = ({ year, round }) => {
   const [applications, setApplications] = useState([]);
@@ -38,8 +40,14 @@ const Allotment = ({ year, round }) => {
         const initialAllotments = {};
         res.data.forEach(app => {
           initialAllotments[app.branch] = {
-            Male: [],
-            Female: [],
+            Male: {
+              confirmed: [],
+              waiting: [],
+            },
+            Female: {
+              confirmed: [],
+              waiting: [],
+            },
           };
         });
         setAllotments(initialAllotments);
@@ -49,7 +57,7 @@ const Allotment = ({ year, round }) => {
       });
   };
 
-  const addSelectedApplicant = applicant => {
+  const addSelectedApplicant = (applicant, destination) => {
     setAllotments(prevAllotments => {
       const branch = applicant.branch;
       const gender = applicant.gender;
@@ -58,27 +66,29 @@ const Allotment = ({ year, round }) => {
         refinedApplications.findIndex(app => app._id === applicant._id),
         1,
       );
-      newAllotments[branch][gender] = [
-        ...prevAllotments[branch][gender],
+      newAllotments[branch][gender][destination] = [
+        ...prevAllotments[branch][gender][destination],
         applicant,
       ];
       return newAllotments;
     });
+
+    setApplications(prevApplications => [
+      ...prevApplications.filter(app => app._id !== applicant._id),
+    ]);
   };
 
-  const removeSelectedApplicant = applicant => {
+  const removeSelectedApplicant = (applicant, parent) => {
     setAllotments(prevAllotments => {
       const branch = applicant.branch;
       const newAllotments = { ...prevAllotments };
-      newAllotments[branch][gender] = prevAllotments[branch][gender].filter(
-        app => app._id !== applicant._id,
-      );
+      newAllotments[branch][gender][parent] = prevAllotments[branch][gender][
+        parent
+      ].filter(app => app._id !== applicant._id);
       return newAllotments;
     });
-    setRefinedApplications(prevApplications => [
-      ...prevApplications,
-      applicant,
-    ]); // Sort by username
+
+    setApplications(prevApplications => [...prevApplications, applicant]); // Sort by username
   };
 
   const onDragEnd = result => {
@@ -120,6 +130,13 @@ const Allotment = ({ year, round }) => {
     }
   };
 
+  const updateAllotments = allotments => {
+    axios.put(`/api/applications/${year}`, allotments).then(res => {
+      console.log(res.data);
+    });
+    // return generateExcel(allotments);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="allotment-container">
@@ -129,23 +146,40 @@ const Allotment = ({ year, round }) => {
           setBranch={setBranch}
           setGender={setGender}
         />
-        <div className="allotment-columns">
+        <div className="allotment-page-columns">
           <ApplicantsColumn
             addSelectedApplicant={addSelectedApplicant}
             applications={refinedApplications.sort((a, b) =>
               a.grade < b.grade ? 1 : -1,
             )}
           />
-          <AllotmentColumn
-            key={branch}
-            branch={branch}
-            allotments={allotments}
-            setAllotments={setAllotments}
-            gender={gender}
-            year={year}
-            round={round}
-            removeSelectedApplicant={removeSelectedApplicant}
-          />
+          <div className="allotment-and-waiting-column">
+            <AllotmentColumn
+              branch={branch}
+              allotments={allotments}
+              setAllotments={setAllotments}
+              gender={gender}
+              year={year}
+              round={round}
+              removeSelectedApplicant={removeSelectedApplicant}
+            />
+            <WaitingListColumn
+              branch={branch}
+              allotments={allotments}
+              setAllotments={setAllotments}
+              gender={gender}
+              year={year}
+              round={round}
+              removeSelectedApplicant={removeSelectedApplicant}
+            />
+            <button
+              className="allotment-order-confirm-button"
+              type="submit"
+              onClick={() => updateAllotments(allotments)}
+            >
+              Confirm
+            </button>
+          </div>
         </div>
       </div>
     </DragDropContext>

@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import HeldApplicantCard from './HeldApplicantCard';
 import './AllotmentColumn.css';
 
-const ApplicantHoldingSpace = ({
+const WaitingListHoldingSpace = ({
   branch,
   allotments,
   gender,
@@ -51,4 +51,4 @@ const ApplicantHoldingSpace = ({
   );
 };
 
-export default ApplicantHoldingSpace;
+export default WaitingListHoldingSpace;

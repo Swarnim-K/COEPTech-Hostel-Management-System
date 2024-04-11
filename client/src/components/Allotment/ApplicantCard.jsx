@@ -1,5 +1,11 @@
 import React from 'react';
-import { FaPlus, FaMinus, FaChevronUp, FaChevronDown } from 'react-icons/fa';
+import {
+  FaPlus,
+  FaMinus,
+  FaChevronUp,
+  FaChevronDown,
+  FaCircleNotch,
+} from 'react-icons/fa';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import './ApplicantCard.css';
 
@@ -22,7 +28,12 @@ const ApplicantCard = ({ applicant, index, addSelectedApplicant }) => {
           </div>
 
           <div className="applicant-card-actions">
-            <FaPlus onClick={() => addSelectedApplicant(applicant)} />
+            <FaPlus
+              onClick={() => addSelectedApplicant(applicant, 'confirmed')}
+            />
+            <FaCircleNotch
+              onClick={() => addSelectedApplicant(applicant, 'waiting')}
+            />
           </div>
         </div>
       )}

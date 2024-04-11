@@ -10,5 +10,5 @@ import {
 router.get("/:id", getApplication);
 router.get("/", getApplications);
 router.post("/", createApplication);
-router.put("/", updateApplication);
+router.put("/:year", updateApplication);
 export default router;

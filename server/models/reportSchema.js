@@ -6,18 +6,17 @@ const reportSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Student",
     },
-    issue : {
-        type : String,
-        enum : ["Electrical","Carpentry","Cleanliness","Pest Control","Plumbing","Others"]
-    },
-    issueMessage: {
+    issue: {
+        type: String,
+        enum: ["Electrical", "Carpentry", "Cleanliness", "Pest Control", "Plumbing", "Others", "pest-control"]
+    },    
+    details: { // New field to store additional details about the complaint
         type: String
     },
     status: {
         type: String,
-        enum: ['pending', 'resolved'] // Enclose enum values in quotes
+        enum: ['pending', 'resolved']
     }
-
 }, {
     timestamps: true
 });

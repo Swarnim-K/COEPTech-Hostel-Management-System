@@ -4,6 +4,7 @@ import Student from "../models/studentSchema.js";
 import Room from "../models/roomSchema.js";
 import User from "../models/userSchema.js"; // Import the User model
 import jwt from "jsonwebtoken";
+import Report from '../models/reportSchema.js';
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 import dotenv from "dotenv";
@@ -15,25 +16,53 @@ const __dirname = dirname(__filename);
 const envPath = join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
 
-const createReport =expressAsyncHandler(async (req, res) => {
-    const reportData = req.body.form;
-    reportData.status = "pending";
-    const report =  await Report.create(reportData);
-    res.status(200).json(report);
+const createReport = async (req, res) => {
+  try {
+    // Access the data sent from the client
+    const { complaint, details } = req.body;
+    console.log("Received data:", { complaint, details }); // Log received data
 
-  });
+    // Create a new report instance
+    const newReport = new Report({
+      issue: complaint,
+      details: details, // Save details to the database
+      status: 'pending' // Assuming all reports start with a pending status
+    });
 
-const viewReport =expressAsyncHandler(async (req, res) => {
-    const reportId = req.params.id
-    const report = await Report.findById(reportId)
-            .populate('student')
-            .populate({
-                path: 'student',
-                populate: { path: 'room' }
-            });
-    res.status(200).json(report);
+    // Save the report to the database
+    await newReport.save();
 
-});
+    console.log("Report saved:", newReport); // Log saved report
+    // Respond to the client with a success message or any relevant data
+    res.status(200).json({ message: "Complaint received successfully", report: newReport });
+  } catch (error) {
+    console.error("Error saving report:", error); // Log any errors
+    // If an error occurs, respond with an error message
+    res.status(500).json({ error: "An error occurred while saving the complaint report" });
+  }
+};
+
+
+const deletereport = async (req, res) => {
+  const id = req.params.id
+
+  try {
+    // Find the review by ID and delete it
+    const deletedReview = await Report.findByIdAndDelete(id);
+    console.log("Review deleted:", deletedReview);
+
+    if (!deletedReview) {
+      return res.status(404).json({ message: 'Review not found' });
+    }
+
+    // Send a success message as response
+    res.json({ message: 'Review deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting review:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 const changeStatus=expressAsyncHandler(async (req, res) => {
     const reportId = req.params.id
@@ -43,20 +72,24 @@ const changeStatus=expressAsyncHandler(async (req, res) => {
     res.status(200).json(report);
 });
 
-const viewAllReport=expressAsyncHandler(async (req, res) => {
-    const report = await Report.find({})
-    res.status(200).json(report);
+const viewAllReport = async (req, res) => {
+  try {
+    // Fetch all reports from the database
+    const allReports = await Report.find()
+    console.log("Reports fetched:", allReports);
 
-});
-
-//   const deleteReport=expressAsyncHandler(async (req, res) => {
-//     const reportId = req.params.id
-//     const report = await Report.findByIdandDelete(reportId)
-//   });
+    // Respond with the fetched reports
+    res.status(200).json(allReports );
+  } catch (error) {
+    // If an error occurs, respond with an error message
+    console.error("Error:", error);
+    res.status(500).json({ error: "An error occurred while fetching the reports" });
+  }
+};
 
   export{
     createReport,
-    viewReport,
+    deletereport,
     changeStatus,
     viewAllReport,
   };

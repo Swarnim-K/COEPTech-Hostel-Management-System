@@ -1,15 +1,16 @@
 import express from "express";
-const router = express.Router();
-import{
+const router = express.Router(); // Change outer to router
+
+import {
     createReport,
-    viewReport,
+    deletereport,
     changeStatus,
     viewAllReport,
-  } from "../controllers/reportControllers.js";
+} from "../controllers/reportControllers.js";
 
-router.get("/:id", viewReport);
+router.delete("/:id", deletereport);
 router.get("/", viewAllReport);
-router.post("/", createReport);
+router.post("/send", createReport);
 router.put("/status/:id", changeStatus);
 
 export default router;

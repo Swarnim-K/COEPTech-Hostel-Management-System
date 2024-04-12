@@ -67,12 +67,19 @@ const StudentProfile = ({ studentData }) => {
               Room Allocation Applied
             </button>
           ) : (
-            <LinkContainer to="/rooms/allocate/register">
-              <button className="room-allocation-button">
-                Apply for Room Allocation
-              </button>
-            </LinkContainer>
+              <LinkContainer to="/rooms/allocate/register">
+                <button className="room-allocation-button">
+                  Apply for Room Allocation
+                </button>
+              </LinkContainer>
+            
           )}
+
+              <LinkContainer to="/complaint">
+                <button className="room-allocation-button">
+                  Complaint
+                </button>
+              </LinkContainer>
         </div>
       </div>
     </>

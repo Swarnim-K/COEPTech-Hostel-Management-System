@@ -19,6 +19,7 @@ import AllotmentPage from './pages/AllotmentPage.jsx';
 import GuestHome from './components/Guest allocation/GuestHome.jsx';
 import AllotmentMainPage from './components/Allotment/AllotmentMainPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import ComplaintPage from './pages/ComplaintPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,8 @@ const router = createBrowserRouter(
       <Route path="/allocate/register" element={<HostelApplicationPage />} />
       <Route path="/allotment" element={<AllotmentMainPage />} />
       <Route path="/allotment/:round/:year" element={<AllotmentPage />} />
+      <Route path="/complaint" element={<ComplaintPage />} />
+      <Route path="/guest" element={<GuestHome />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>,
   ),

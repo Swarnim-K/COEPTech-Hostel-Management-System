@@ -1,0 +1,120 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  legend {
+    background-color: black;
+    color: white;
+  }
+  
+  button {
+    margin: auto;
+    width: fit-content;
+  }
+  
+  input[type="submit"] {
+    margin: auto;
+    width: fit-content;
+  }
+  
+  textarea {
+    width: fit-content;
+  }
+
+  .boxForm{
+    padding-top: 10%;
+  }
+
+  .complaint-submit-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #455eb5;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    height: 2.5em;
+    cursor: pointer;
+    transition-duration: 0.1s;
+    width: 100%;
+  }
+
+  complaint-submit-button:hover {
+    background-color: #0056b3;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition-duration: 0.1s;
+  }
+
+  .complaint-form-container {
+    padding-top: 10vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ededed;
+    min-height: 100vh;
+    width: 100%;
+    z-index: 0;
+    overflow-x: hidden;
+  }
+
+  .complaint-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .complaint-form h2 {
+    text-align: center;
+    color: #333;
+    font-weight: 300;
+    margin-bottom: 30px;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .form-field label {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 16px;
+  }
+
+  .form-field select,
+  .form-field textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #ededed;
+    box-shadow:
+      rgb(204, 219, 232) 3px 3px 6px 0px inset,
+      rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .form-field textarea {
+    resize: vertical;
+  }

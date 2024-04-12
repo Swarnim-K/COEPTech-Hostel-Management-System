@@ -1,0 +1,125 @@
+#content {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* #45d0a4 */
+
+.card--container {
+    background: #FFFFFF;
+	width: 20em;
+	height: auto;
+    min-height: 25em;
+	box-sizing: content-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	border-radius: 1em;
+    /* border-radius: 1rem 1rem 0 0; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.card--body {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.card--content {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 0em 2em;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+
+.card--meta {
+	background: rgba(0,0,0,0.2);
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0em 2em;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+/* .icon {
+	height: 4em;
+	width: 4em;
+	padding: 0em 0em;
+	margin: 0em 0em;
+	background: rgba(0,0,0,0.2);
+} */
+.card--title{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	margin: 0em 0em;
+	color: #11235A;
+	font-size: 1.75em;
+	line-height: 1.15em;
+    padding: 1em 1em 1em 2em;
+    
+}
+.card--author{
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	padding: 0;
+	color: rgba(255,255,255,0.6);
+	font-size: 1.00em;
+	line-height: 1.15em;
+}
+.card--tag{
+	font-family: 'Open Sans', sans-serif;
+	margin: 2.00em 0em;
+	color: rgba(255, 255, 255, 1);
+	font-size: 0.75em;
+	line-height: 1.15em;
+}
+
+.room-allocation-button-container{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.start-now{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #455eb5;
+    border-radius: 8px;
+    width: 100%;
+    padding: 1em;
+    /* padding-bottom: 2em; */
+    margin-bottom: 1em;
+    border-style: none;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+    cursor: pointer;
+    transition-duration: 0.1s;
+    margin-top: 20px;
+}
+
+.card-button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

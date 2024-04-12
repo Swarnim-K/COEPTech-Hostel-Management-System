@@ -49,7 +49,6 @@ const viewAllReport=expressAsyncHandler(async (req, res) => {
 
 });
 
-
 //   const deleteReport=expressAsyncHandler(async (req, res) => {
 //     const reportId = req.params.id
 //     const report = await Report.findByIdandDelete(reportId)

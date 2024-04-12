@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GuestRoomsSection from './GuestRoomsSection'; // Assuming the correct file path
 import axios from 'axios';
-import './GuestRoom.css';
+import './RoomCard.css';
 
 const GuestRoom = () => {
   const [guestRooms, setGuestRooms] = useState([]);

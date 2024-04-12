@@ -17,7 +17,7 @@ import RoomAllocationPage from './pages/RoomAllocationPage.jsx';
 import HostelApplicationPage from './pages/HostelApplicationPage.jsx';
 import AllotmentPage from './pages/AllotmentPage.jsx';
 import GuestRoomAllocationPage from './pages/GuestRoomAllocationPage.jsx';
-import AllotmentMainPage from './components/Allotment/AllotmentMainPage.jsx';
+// import AllotmentMainPage from './components/Allotment/AllotmentMainPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 const router = createBrowserRouter(
@@ -27,7 +27,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/allocate" element={<RoomAllocationPage />} />
       <Route path="/allocate/register" element={<HostelApplicationPage />} />
-      <Route path="/allotment" element={<AllotmentMainPage />} />
+      {/* <Route path="/allotment" element={<AllotmentMainPage />} /> */}
       <Route path="/allotment/:round/:year" element={<AllotmentPage />} />
       <Route path="/guest" element={<GuestRoomAllocationPage />} />
       <Route path="*" element={<NotFoundPage />} />

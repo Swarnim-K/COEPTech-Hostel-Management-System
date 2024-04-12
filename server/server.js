@@ -25,6 +25,7 @@ import userRouter from "./routes/userRoutes.js";
 import studentRouter from "./routes/studentRoutes.js";
 import roomRouter from "./routes/roomRoutes.js";
 import applicationRouter from "./routes/applicationRoutes.js";
+import allotmentRouter from "./routes/allotmentRoutes.js";
 
 main()
   .then(() =>
@@ -45,6 +46,7 @@ app.use("/api/users", userRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/rooms", roomRouter);
 app.use("/api/applications", applicationRouter);
+app.use("/api/allotments", allotmentRouter);
 
 app.use(notFound);
 app.use(errorHandler);

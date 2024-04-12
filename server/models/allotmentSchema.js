@@ -6,44 +6,116 @@ let AllotmentSchema = new Schema(
   {
     academicYearStart: {
       type: String,
+      required: true,
+      unique: true,
     },
     academicYearEnd: {
       type: String,
     },
     years: {
       fybtech: {
-        type: String,
-        required: true,
-        default: "0",
+        status: {
+          type: String,
+          required: true,
+          default: "unstarted",
+          enum: ["unstarted", "running", "completed"],
+        },
+        rounds: [
+          {
+            round: {
+              type: String,
+              required: true,
+              default: "0",
+            },
+            status: {
+              type: String,
+              required: true,
+              default: "unstarted",
+              enum: ["unstarted", "running", "completed"],
+            },
+            result: {
+              type: String,
+            },
+          },
+        ],
       },
       sybtech: {
-        type: String,
-        required: true,
-        default: "0",
+        status: {
+          type: String,
+          required: true,
+          default: "unstarted",
+          enum: ["unstarted", "running", "completed"],
+        },
+        rounds: [
+          {
+            round: {
+              type: String,
+              required: true,
+              default: "0",
+            },
+            status: {
+              type: String,
+              required: true,
+              default: "unstarted",
+              enum: ["unstarted", "running", "completed"],
+            },
+            result: {
+              type: String,
+            },
+          },
+        ],
       },
       tybtech: {
-        type: String,
-        required: true,
-        default: "0",
+        status: {
+          type: String,
+          required: true,
+          default: "unstarted",
+          enum: ["unstarted", "running", "completed"],
+        },
+        rounds: [
+          {
+            round: {
+              type: String,
+              required: true,
+              default: "0",
+            },
+            status: {
+              type: String,
+              required: true,
+              default: "unstarted",
+              enum: ["unstarted", "running", "completed"],
+            },
+            result: {
+              type: String,
+            },
+          },
+        ],
       },
       finalyearbtech: {
-        type: String,
-        required: true,
-        default: "0",
-      },
-    },
-    results: {
-      fybtech: {
-        type: String,
-      },
-      sybtech: {
-        type: String,
-      },
-      tybtech: {
-        type: String,
-      },
-      finalyearbtech: {
-        type: String,
+        status: {
+          type: String,
+          required: true,
+          default: "unstarted",
+          enum: ["unstarted", "running", "completed"],
+        },
+        rounds: [
+          {
+            round: {
+              type: String,
+              required: true,
+              default: "0",
+            },
+            status: {
+              type: String,
+              required: true,
+              default: "unstarted",
+              enum: ["unstarted", "running", "completed"],
+            },
+            result: {
+              type: String,
+            },
+          },
+        ],
       },
     },
   },

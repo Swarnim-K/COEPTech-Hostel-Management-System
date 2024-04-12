@@ -4,16 +4,23 @@ import csvParser from "csv-parser";
 import User from "../models/userSchema.js";
 import Student from "../models/studentSchema.js";
 
+import { fileURLToPath } from "url";
+import { join, dirname } from "path";
+
 main().catch((err) => console.log(err));
 
 async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/Hostel");
 }
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const dataPath = join(__dirname, "tystudentsdata.csv");
 async function seedStudents() {
   const results = [];
 
-  fs.createReadStream("C:/Users/anant/OneDrive/Desktop/heck/COEPTech_Hostel_Management_System/server/seed/tystudentsdata.csv")
+  fs.createReadStream(dataPath)
     .pipe(csvParser({ separator: "," })) // Specify the separator as a comma
     .on("data", (data) => {
       console.log("Student Data:", data); // Log the data being read

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Application from "../models/applicationSchema.js";
 import Student from "../models/studentSchema.js";
+import Allotment from "../models/allotmentSchema.js";
 
 main().catch((err) => console.log(err));
 
@@ -57,6 +58,10 @@ async function seedApplications() {
     room: null,
   });
 
+  const latestAllotment = await Allotment.findOne({
+    academicYearStart: "2023",
+  });
+
   for (const student of studentsWithoutRoom) {
     const application = new Application({
       name: student.name,
@@ -71,6 +76,11 @@ async function seedApplications() {
       address: `${
         cities[Math.floor(Math.random() * cities.length)]
       }, Maharashtra`,
+      allotment: {
+        allotmentId: latestAllotment._id,
+        allotmentStatus: false,
+        allotmentRound: 1,
+      },
     });
     await application.save();
     console.log(application);

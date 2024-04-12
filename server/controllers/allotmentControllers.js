@@ -22,12 +22,6 @@ const startAllotment = expressAsyncHandler(async (req, res) => {
   const allotment = await Allotment.create({
     academicYearStart,
     academicYearEnd: (parseInt(academicYearStart) + 1).toString(),
-    years: {
-      fybtech: "0",
-      sybtech: "0",
-      tybtech: "0",
-      finalyearbtech: "0",
-    },
   });
 
   res.status(201).json(allotment);
@@ -35,11 +29,32 @@ const startAllotment = expressAsyncHandler(async (req, res) => {
 
 const startAllotmentForYear = expressAsyncHandler(async (req, res) => {
   const { academicYearStart, year } = req.body;
-  const allotment = await Allotment.findOneAndUpdate(
-    { academicYearStart },
-    { $set: { [`years.${year}`]: "1" } },
-    { new: true }
+  const allotment = await Allotment.findOne({ academicYearStart });
+  allotment.years[year].status = "running";
+
+  await allotment.save();
+  res.status(201).json(allotment);
+});
+
+const startAllotmentRoundForYear = expressAsyncHandler(async (req, res) => {
+  const { academicYearStart, year, round } = req.body;
+  const allotment = await Allotment.findOne({ academicYearStart });
+  allotment.years[year].rounds.push({ round, status: "running" });
+  await allotment.save();
+
+  res.status(201).json(allotment);
+});
+
+const endAllotmentRoundForYear = expressAsyncHandler(async (req, res) => {
+  const { academicYearStart, year, round } = req.body;
+  const allotment = await Allotment.findOne({ academicYearStart });
+
+  const roundIndex = allotment.years[year].rounds.findIndex(
+    (r) => r.round === round
   );
+
+  allotment.years[year].rounds[roundIndex].status = "completed";
+  await allotment.save();
 
   res.status(201).json(allotment);
 });
@@ -48,11 +63,13 @@ const getAllotmentStatus = expressAsyncHandler(async (req, res) => {
   const { academicYearStart, year } = req.body;
   const allotment = await Allotment.findOne({ academicYearStart });
 
-  if (allotment[year] === "1") {
-    res.status(200).json({ status: "started" });
-  } else {
-    res.status(200).json({ status: "not started" });
-  }
+  res.status(200).json(allotment.years[year]);
 });
 
-export { getAllotmentStatus };
+export {
+  startAllotment,
+  startAllotmentForYear,
+  startAllotmentRoundForYear,
+  endAllotmentRoundForYear,
+  getAllotmentStatus,
+};

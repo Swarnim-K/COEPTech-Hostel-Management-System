@@ -6,6 +6,8 @@ import AllotmentColumn from './AllotmentColumn';
 import './Allotment.css';
 import Refinement from './Refinement';
 import WaitingListColumn from './WaitingListColumn';
+import ConfirmationModal from './ConfirmationModal';
+import { useNavigate } from 'react-router-dom';
 import generateExcel from '../../utilities/generateExcel';
 
 const Allotment = ({ year, round }) => {
@@ -15,6 +17,12 @@ const Allotment = ({ year, round }) => {
   const [branch, setBranch] = useState('Civil Engineering');
   const [branches, setBranches] = useState([]);
   const [gender, setGender] = useState('Male');
+
+  const [academicYearStart, setAcademicYearStart] = useState(2023);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -29,7 +37,9 @@ const Allotment = ({ year, round }) => {
 
   const fetchData = () => {
     axios
-      .get(`/api/applications?year=${year}`)
+      .get(
+        `/api/applications?round=${round}&year=${year}&academicYearStart=${academicYearStart}`,
+      )
       .then(res => {
         setApplications(res.data);
         // Extract unique branches from applications
@@ -53,7 +63,13 @@ const Allotment = ({ year, round }) => {
         setAllotments(initialAllotments);
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response.data);
+        if (
+          err.response.data === 'Allotment:Unstarted' ||
+          err.response.data === 'Allotment:Completed'
+        ) {
+          navigate('/allotment');
+        }
       });
   };
 
@@ -130,15 +146,41 @@ const Allotment = ({ year, round }) => {
     }
   };
 
+  const showConfirmationModal = () => {
+    setShowModal(true);
+  };
+
   const updateAllotments = allotments => {
-    axios.put(`/api/applications/${year}`, allotments).then(res => {
-      console.log(res.data);
-    });
+    // axios
+    //   .put('/api/allotments/round', {
+    //     year: year,
+    //     round: round,
+    //     academicYearStart: academicYearStart,
+    //   })
+    //   .then(res => {
+    //     console.log(res.data);
+    //   });
+    axios
+      .put(`/api/applications/${year}`, allotments)
+      .then(res => {
+        console.log(res.data);
+        navigate('/allotment');
+      })
+      .catch(err => {
+        console.log(err);
+      });
     // return generateExcel(allotments);
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
+      {showModal && (
+        <ConfirmationModal
+          allotments={allotments}
+          updateAllotments={updateAllotments}
+          setShowModal={setShowModal}
+        />
+      )}
       <div className="allotment-container">
         {/* <BranchSelector branches={branches} setBranch={setBranch} /> */}
         <Refinement
@@ -175,7 +217,7 @@ const Allotment = ({ year, round }) => {
             <button
               className="allotment-order-confirm-button"
               type="submit"
-              onClick={() => updateAllotments(allotments)}
+              onClick={() => showConfirmationModal()}
             >
               Confirm
             </button>

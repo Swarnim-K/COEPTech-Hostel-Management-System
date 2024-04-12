@@ -53,7 +53,16 @@ const applicationSchema = new Schema(
       },
       allotmentRound: {
         type: Number,
+        default: 1
       },
+      allotmentSeatCategoryType:{
+        type: String,
+        default: "OPEN"
+      },
+      allotmentSeatCategoryNumber:{
+        type: Number,
+        default: 1
+      }
     },
   },
   {

@@ -5,10 +5,12 @@ import {
   getApplications,
   getApplication,
   updateApplication,
+  autoSortApplications
 } from "../controllers/applicationController.js";
 
-router.get("/:id", getApplication);
+router.post("/sort", autoSortApplications);
 router.get("/", getApplications);
 router.post("/", createApplication);
 router.put("/:year", updateApplication);
+// router.get("/:id", getApplication);
 export default router;

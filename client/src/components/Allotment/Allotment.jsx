@@ -170,6 +170,7 @@ const Allotment = ({ year, round }) => {
         console.log(err);
       });
     // return generateExcel(allotments);
+    console.log(allotments)
   };
 
   return (

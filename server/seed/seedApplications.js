@@ -9,7 +9,7 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/Hostel");
 }
 
-const categories = ["General", "OBC", "SC", "ST"];
+const categories = ["General", "OBC", "SC", "ST","VJ","NT-1","NT-2","NT-3","EWS"];
 const cities = [
   "Mumbai",
   "Pune",
@@ -78,8 +78,6 @@ async function seedApplications() {
       }, Maharashtra`,
       allotment: {
         allotmentId: latestAllotment._id,
-        allotmentStatus: false,
-        allotmentRound: 1,
       },
     });
     await application.save();

@@ -1,19 +1,21 @@
-.App {
+.complaint-review-container {
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  background-color: #f9f9fb;
-  padding: 20px;
-  color: #333;
+  background-color: #ededed;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem;
 }
 
-.App-header {
-  background-color: #ffffff;
-  padding: 20px;
-  font-size: 24px;
-  color: #5D6473;
-  margin-bottom: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+.complaint-review-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
+  margin: 2rem 0;
+  display: block;
+  text-align: center;
 }
 
 .review-list {
@@ -25,7 +27,7 @@
 .review-card {
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   margin: 10px;
   padding: 20px;
   width: calc(50% - 20px);
@@ -39,19 +41,20 @@
   transform: translateY(-5px);
 }
 
-.checkbox, .delete-icon {
+.checkbox,
+.delete-icon {
   cursor: pointer;
 }
 
 .checkbox input[type='checkbox'] {
-  accent-color: #4CAF50;
+  accent-color: #4caf50;
 }
 
 .delete-icon {
-  color: #FF6347;
+  color: #ff6347;
   transition: color 0.3s;
 }
 
 .delete-icon:hover {
-  color: #FF4500;
+  color: #ff4500;
 }

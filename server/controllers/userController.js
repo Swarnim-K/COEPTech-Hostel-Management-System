@@ -8,7 +8,7 @@ import generateToken from "../utils/generateToken.js";
 
 const authUser = expressAsyncHandler(async (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body)
+  console.log(req.body);
 
   const user = await User.findOne({ username });
 
@@ -72,12 +72,8 @@ const logoutUser = expressAsyncHandler(async (req, res) => {
 //@route GET /api/users/profile
 //@access Private
 const getUserProfile = expressAsyncHandler(async (req, res) => {
-  const user = {
-    _id: req.user._id,
-    name: req.user.name,
-    username: req.user.username,
-  };
-
+  const { _id } = req.params;
+  const user = await User.findById(_id);
   res.status(200).json(user);
 });
 

@@ -1,9 +1,12 @@
-import ComplaintForm from "../components/Complaint/ComplaintForm";
+import React from 'react';
+import Complaint from '../components/Complaint/Complaint.jsx';
 
-function ComplaintPage(){
-    return(
-        <ComplaintForm />
-    );
+const ComplaintPage = () => {
+  return (
+    <div>
+      <Complaint />
+    </div>
+  );
 };
 
 export default ComplaintPage;

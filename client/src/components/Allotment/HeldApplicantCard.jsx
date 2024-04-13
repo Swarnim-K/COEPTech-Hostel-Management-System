@@ -38,7 +38,14 @@ const HeldApplicantCard = ({
           <div className="applicant-card-small">{applicant.grade}</div>
           <div className="applicant-card-small">{applicant.backlogs}</div>
           <div className="applicant-card-medium seat-category">
-            <input type="text" />
+            <input
+              value={
+                applicant.allotment.allotmentSeatCategoryType +
+                '-' +
+                applicant.allotment.allotmentSeatCategoryNumber
+              }
+              type="text"
+            />
           </div>
 
           <div className="applicant-card-actions">

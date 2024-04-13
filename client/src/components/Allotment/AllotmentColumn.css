@@ -58,9 +58,11 @@
   border-radius: 1rem; /* Consistent rounded design */
   background: #5628ee;
   color: white;
-  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 .applicants-holding-space {

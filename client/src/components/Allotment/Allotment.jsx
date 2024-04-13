@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import ApplicantsColumn from './ApplicantsColumn';
 import AllotmentColumn from './AllotmentColumn';
 import './Allotment.css';
@@ -51,12 +51,12 @@ const Allotment = ({ year, round }) => {
         res.data.forEach(app => {
           initialAllotments[app.branch] = {
             Male: {
-              confirmed: [],
-              waiting: [],
+              Confirmed: [],
+              Waiting: [],
             },
             Female: {
-              confirmed: [],
-              waiting: [],
+              Confirmed: [],
+              Waiting: [],
             },
           };
         });
@@ -104,7 +104,18 @@ const Allotment = ({ year, round }) => {
       return newAllotments;
     });
 
-    setApplications(prevApplications => [...prevApplications, applicant]); // Sort by username
+    // setRefinedApplications(prevApplications => [
+    //   ...prevApplications,
+    //   applicant,
+    // ]); // Sort by username
+
+    setRefinedApplications(prevApplications => {
+      if (prevApplications !== null) {
+        return [...prevApplications, applicant];
+      } else {
+        return [applicant];
+      }
+    });
   };
 
   const onDragEnd = result => {
@@ -169,8 +180,27 @@ const Allotment = ({ year, round }) => {
       .catch(err => {
         console.log(err);
       });
-    // return generateExcel(allotments);
-    console.log(allotments)
+  };
+
+  const onAutoSortHandler = () => {
+    branches.forEach(branch => {
+      axios
+        .post(
+          `/api/applications/sort?round=${round}&year=${year}&academicYearStart=${academicYearStart}`,
+          {
+            applications: applications.filter(app => app.branch === branch),
+            branch: branch,
+          },
+        )
+        .then(res => {
+          setAllotments(prevAllotments => {
+            const newAllotments = { ...prevAllotments };
+            newAllotments[branch] = res.data;
+            return newAllotments;
+          });
+        });
+    });
+    setApplications([]);
   };
 
   return (
@@ -191,6 +221,7 @@ const Allotment = ({ year, round }) => {
         />
         <div className="allotment-page-columns">
           <ApplicantsColumn
+            onAutoSortHandler={onAutoSortHandler}
             addSelectedApplicant={addSelectedApplicant}
             applications={refinedApplications.sort((a, b) =>
               a.grade < b.grade ? 1 : -1,
@@ -205,6 +236,7 @@ const Allotment = ({ year, round }) => {
               year={year}
               round={round}
               removeSelectedApplicant={removeSelectedApplicant}
+              showConfirmationModal={showConfirmationModal}
             />
             <WaitingListColumn
               branch={branch}
@@ -215,13 +247,6 @@ const Allotment = ({ year, round }) => {
               round={round}
               removeSelectedApplicant={removeSelectedApplicant}
             />
-            <button
-              className="allotment-order-confirm-button"
-              type="submit"
-              onClick={() => showConfirmationModal()}
-            >
-              Confirm
-            </button>
           </div>
         </div>
       </div>

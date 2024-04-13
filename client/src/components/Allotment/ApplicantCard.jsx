@@ -29,10 +29,10 @@ const ApplicantCard = ({ applicant, index, addSelectedApplicant }) => {
 
           <div className="applicant-card-actions">
             <FaPlus
-              onClick={() => addSelectedApplicant(applicant, 'confirmed')}
+              onClick={() => addSelectedApplicant(applicant, 'Confirmed')}
             />
             <FaCircleNotch
-              onClick={() => addSelectedApplicant(applicant, 'waiting')}
+              onClick={() => addSelectedApplicant(applicant, 'Waiting')}
             />
           </div>
         </div>

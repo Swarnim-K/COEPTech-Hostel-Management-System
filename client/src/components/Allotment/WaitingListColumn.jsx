@@ -15,8 +15,8 @@ const WaitingListColumn = ({
   const applicantSwitch = (applicant, index, direction, positions) => {
     const newIndex = direction === 'up' ? index - positions : index + positions;
     const newAllotments = { ...allotments };
-    newAllotments[branch][gender]['waiting'].splice(index, 1);
-    newAllotments[branch][gender]['waiting'].splice(newIndex, 0, applicant);
+    newAllotments[branch][gender]['Waiting'].splice(index, 1);
+    newAllotments[branch][gender]['Waiting'].splice(newIndex, 0, applicant);
     setAllotments(newAllotments);
   };
 
@@ -34,7 +34,7 @@ const WaitingListColumn = ({
           gender={gender}
           removeSelectedApplicant={removeSelectedApplicant}
           applicantSwitch={applicantSwitch}
-          parent="waiting"
+          parent="Waiting"
         />
       </div>
     </div>

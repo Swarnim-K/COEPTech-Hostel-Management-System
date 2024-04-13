@@ -3,7 +3,11 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import ApplicantCard from './ApplicantCard';
 import './ApplicantsColumn.css';
 
-const ApplicantsColumn = ({ applications, addSelectedApplicant }) => {
+const ApplicantsColumn = ({
+  applications,
+  addSelectedApplicant,
+  onAutoSortHandler,
+}) => {
   return (
     <>
       <Droppable droppableId={'applicants-column'}>
@@ -11,6 +15,9 @@ const ApplicantsColumn = ({ applications, addSelectedApplicant }) => {
           <div ref={provided.innerRef} {...provided.droppableProps}>
             <div className="applicants-column-inner">
               <h2 className="student-column-heading">Applicants</h2>
+              <button className="auto-sort-button" onClick={onAutoSortHandler}>
+                Auto Allocate
+              </button>
               {applications.map((applicant, index) => (
                 <ApplicantCard
                   key={applicant._id}

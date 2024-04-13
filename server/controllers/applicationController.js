@@ -4,7 +4,7 @@ import Student from "../models/studentSchema.js";
 import Room from "../models/roomSchema.js";
 import User from "../models/userSchema.js"; // Import the User model
 import Allotment from "../models/allotmentSchema.js";
-import allocation from "./allocate.js"
+import allocation from "./allocate.js";
 import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
@@ -18,7 +18,7 @@ const envPath = join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
 
 const studentsByBranchBoys = {};
-const studentsByBranchGirls={};
+const studentsByBranchGirls = {};
 
 const getApplication = expressAsyncHandler(async (req, res) => {
   const { username } = await User.findById(req.params.id);
@@ -63,7 +63,6 @@ const getApplications = expressAsyncHandler(async (req, res) => {
       }
       const applications = await Application.find({
         year: year,
-        branch: "Computer Engineering",
         "allotment.allotmentStatus": false,
         "allotment.allotmentId": allotment._id,
         "allotment.allotmentRound": round,
@@ -76,18 +75,16 @@ const getApplications = expressAsyncHandler(async (req, res) => {
   }
 });
 
-
 const autoSortApplications = expressAsyncHandler(async (req, res) => {
   const { round, academicYearStart } = req.query;
-  const {branch} = req.body;
-  const allotment = await Allotment.findOne({
-    academicYearStart,
-  });
-  if (req.query.year) 
-  {
+  const { applications, branch } = req.body;
+  // const allotment = await Allotment.findOne({
+  //   academicYearStart,
+  // });
+  if (req.query.year) {
     let year = req.query.year;
-    const total_boys = 231
-    const total_girls = 147
+    const total_boys = 231;
+    const total_girls = 147;
     if (req.query.year === "fybtech") {
       year = "F.Y.B.Tech";
     } else if (req.query.year === "sybtech") {
@@ -99,19 +96,19 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
     } else {
       return res.status(400);
     }
-    const applications = await Application.find({
-      year: year,
-      "allotment.allotmentStatus": false,
-      "allotment.allotmentId": allotment._id,
-      "allotment.allotmentRound": round,
-    });
-    
-    // if (Object.keys(studentsByBranchBoys).length === 0 && Object.keys(studentsByBranchGirls).length === 0) 
+    // const applications = await Application.find({
+    //   year: year,
+    //   "allotment.allotmentStatus": false,
+    //   "allotment.allotmentId": allotment._id,
+    //   "allotment.allotmentRound": round,
+    // });
+
+    // if (Object.keys(studentsByBranchBoys).length === 0 && Object.keys(studentsByBranchGirls).length === 0)
     // {
     //   console.log("hi")
     //   applications.forEach(application => {
     //     const { branch } = application;
-  
+
     //     if (!studentsByBranchBoys[branch] && application.gender==="Male") {
     //         studentsByBranchBoys[branch] = [];
     //     }
@@ -126,7 +123,7 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
     //     }
     //   })
     // }
-    applications.forEach(application => {
+    applications.forEach((application) => {
       const { branch, gender } = application;
 
       if (!studentsByBranchBoys[branch] && gender === "Male") {
@@ -143,17 +140,22 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
         studentsByBranchGirls[branch].push(application);
       }
     });
-    const finalList = allocation(studentsByBranchBoys[branch],studentsByBranchGirls[branch],total_boys,total_girls)
-    res.status(200).json({"Male":
-    {
-      "Confirmed" : finalList[0][0],
-      "Waiting" : finalList[0][1]
-    } , 
-    "Female":{
-      "Confirmed" : finalList[1][0],
-      "Waiting" : finalList[1][1]
-    } });
-
+    const finalList = allocation(
+      studentsByBranchBoys[branch],
+      studentsByBranchGirls[branch],
+      total_boys,
+      total_girls
+    );
+    res.status(200).json({
+      Male: {
+        Confirmed: finalList[0][0],
+        Waiting: finalList[0][1],
+      },
+      Female: {
+        Confirmed: finalList[1][0],
+        Waiting: finalList[1][1],
+      },
+    });
   }
 });
 

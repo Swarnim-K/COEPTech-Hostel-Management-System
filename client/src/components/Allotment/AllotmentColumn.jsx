@@ -11,12 +11,13 @@ const AllotmentColumn = ({
   year,
   round,
   removeSelectedApplicant,
+  showConfirmationModal,
 }) => {
   const applicantSwitch = (applicant, index, direction, positions) => {
     const newIndex = direction === 'up' ? index - positions : index + positions;
     const newAllotments = { ...allotments };
-    newAllotments[branch][gender]['confirmed'].splice(index, 1);
-    newAllotments[branch][gender]['confirmed'].splice(newIndex, 0, applicant);
+    newAllotments[branch][gender]['Confirmed'].splice(index, 1);
+    newAllotments[branch][gender]['Confirmed'].splice(newIndex, 0, applicant);
     setAllotments(newAllotments);
   };
 
@@ -25,6 +26,14 @@ const AllotmentColumn = ({
       <h2 className="allotment-column-heading">
         Allotment List ({`Round ${round}`})
       </h2>
+      <button
+        className="allotment-order-confirm-button"
+        type="submit"
+        onClick={showConfirmationModal}
+      >
+        Confirm Allotment
+      </button>
+
       <div className="allotment-holder-card">
         <div className="allotment-holder-card-header">
           <h3 className="allotment-holder-card-title">
@@ -37,7 +46,7 @@ const AllotmentColumn = ({
           gender={gender}
           removeSelectedApplicant={removeSelectedApplicant}
           applicantSwitch={applicantSwitch}
-          parent="confirmed"
+          parent="Confirmed"
         />
       </div>
     </div>

@@ -1,60 +1,118 @@
+/* Base container styling */
 .complaint-review-container {
   text-align: center;
   font-family: 'Roboto', sans-serif;
-  background-color: #ededed;
+  background-color: #f7f7f7;  /* Lighter background for a cleaner look */
   min-height: 100vh;
   width: 100%;
   padding: 2rem;
 }
 
+/* Heading styling */
 .complaint-review-heading {
-  font-size: 3rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-family: 'Roboto', sans-serif;
-  color: #000000;
-  margin: 2rem 0;
-  display: block;
-  text-align: center;
+  font-size: 2.5rem; /* Slightly smaller for better balance */
+  font-weight: 600; /* Less boldness for modern feel */
+  color: #333; /* Dark grey for softer contrast */
+  margin-bottom: 1rem; /* Reduced bottom margin */
 }
 
+/* List of reviews */
 .review-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 1rem; /* Added top margin for spacing */
 }
 
+/* Individual review card styling */
 .review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  margin: 10px;
-  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  margin: 0.5rem;
+  padding: 1.5rem;
   width: calc(50% - 20px);
   max-width: 500px;
-  text-align: left;
   position: relative;
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .review-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
-.checkbox,
-.delete-icon {
-  cursor: pointer;
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto; /* Ensures buttons stick to the bottom */
 }
 
+/* Other styles remain unchanged */
+
+
+/* Checkbox customization */
 .checkbox input[type='checkbox'] {
-  accent-color: #4caf50;
+  accent-color: #4caf50; /* Keep the original green color */
+  cursor: pointer; /* Ensure cursor indicates interactivity */
 }
 
+/* Trash icon interaction */
 .delete-icon {
   color: #ff6347;
   transition: color 0.3s;
+  cursor: pointer; /* Ensure cursor indicates interactivity */
 }
 
 .delete-icon:hover {
-  color: #ff4500;
+  color: #e53e30; /* Darker shade on hover for better feedback */
+}
+
+/* Additional typography and spacing for content inside cards */
+.review-card div {
+  margin-top: 20px;
+}
+
+.review-card h4 {
+  color: #333; /* Dark grey for better readability */
+  margin-bottom: 0.25rem; /* Smaller margin for tight spacing */
+}
+
+.review-card p {
+  color: #666; /* Lighter grey for less emphasis on text */
+  line-height: 1.5; /* Increased line height for readability */
+}
+
+/* Button styles */
+.status-button,
+.delete-button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.status-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.status-button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.status-button:hover,
+.delete-button:hover {
+  filter: brightness(90%);
 }

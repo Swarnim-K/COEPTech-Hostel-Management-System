@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 import './ComplaintReview.css';
-import { FaTrash } from 'react-icons/fa'; // Import trash icon from react-icons/fa
 
 const ComplaintReview = () => {
   const [reviews, setReviews] = useState([]);
@@ -22,14 +21,12 @@ const ComplaintReview = () => {
   const handleCheckboxChange = async id => {
     try {
       await axios.put(`/api/reports/status/${id}`, { status: 'resolved' });
-      setReviews(
-        reviews.map(review => {
-          if (review._id === id) {
-            return { ...review, status: 'resolved' };
-          }
-          return review;
-        }),
-      );
+      setReviews(reviews.map(review => {
+        if (review._id === id) {
+          return { ...review, status: 'resolved' };
+        }
+        return review;
+      }));
     } catch (error) {
       console.error('Error updating review status:', error);
     }
@@ -50,32 +47,27 @@ const ComplaintReview = () => {
       <div className="review-list">
         {reviews.map(review => (
           <div className="review-card" key={review._id}>
-            <div
-              className="icons"
-              style={{ display: 'flex', justifyContent: 'space-between' }}
-            >
-              <div className="checkbox">
-                <input
-                  type="checkbox"
-                  checked={review.status === 'resolved'}
-                  onChange={() => handleCheckboxChange(review._id)}
-                />
-              </div>
-              <div
-                className="delete-icon"
-                onClick={() => handleDeleteReview(review._id)}
-              >
-                <FaTrash />
-              </div>
-            </div>
-            <div style={{ marginTop: '20px' }}>
+            <div className="review-content">
               <h4>Issue: {review.issue}</h4>
               <p>Details: {review.details}</p>
-              <p>
-                Status: <strong>{review.status}</strong>
-              </p>
+              <p>Status: <strong>{review.status}</strong></p>
               <p>Created At: {new Date(review.createdAt).toLocaleString()}</p>
               <p>Updated At: {new Date(review.updatedAt).toLocaleString()}</p>
+            </div>
+            <div className="buttons">
+              <button
+                className="status-button"
+                onClick={() => handleCheckboxChange(review._id)}
+                disabled={review.status === 'resolved'}
+              >
+                Resolve
+              </button>
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteReview(review._id)}
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}

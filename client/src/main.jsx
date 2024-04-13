@@ -20,6 +20,7 @@ import GuestRoomAllocationPage from './pages/GuestRoomAllocationPage.jsx';
 import AllotmentMainPage from './components/AllotmentMainPage/AllotmentMainPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ComplaintPage from './pages/ComplaintPage.jsx';
+import ComplaintReview from './components/Complaint/ComplaintReview.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +33,7 @@ const router = createBrowserRouter(
       <Route path="/allotment/:round/:year" element={<AllotmentPage />} />
       <Route path="/guest" element={<GuestRoomAllocationPage />} />
       <Route path="/complaint" element={<ComplaintPage />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="*" element={<NotFoundPage />} /> 
     </Route>,
   ),
 );

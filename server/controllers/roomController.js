@@ -88,4 +88,47 @@ const getRooms = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export { getRoom, getRooms };
+const giveRoomPreferences = expressAsyncHandler(async (req, res) => {
+  const { username } = await User.findById(req.params.id);
+  const application = await Application.findOne({
+    username: username,
+  });
+  application.roomPreferences=req.body
+   await application.save().then(savedApplication => {
+    res.status(200).json(savedApplication);
+  })
+  .catch(error => {
+    console.error('Error saving application:', error);
+})
+});
+
+const allocateRoom=expressAsyncHandler (async (req, res) => {
+  const { username } = await User.findById(req.params.id);
+  const student = await Student.findOne({
+    username: username,
+  });
+  const roomId = req.query.id
+  await Room.findByIdAndUpdate(roomId, { $push: { members: student._id } });
+
+});
+
+const viewRoomallocation = expressAsyncHandler (async (req, res) => {
+  const { username } = await User.findById(req.params.id);
+  const student = await Student.findOne({
+    username: username,
+  });
+  const room = await Room.findOne({ members: student._id });
+  res.status(200).json(room);
+});
+
+const approveRoomallocation =  expressAsyncHandler (async (req, res) => {
+  const { username } = await User.findById(req.params.id);
+  const student = await Student.findOne({
+    username: username,
+  });
+  const room = await Room.findOne({ members: student._id });
+  student.room = room._id; 
+  await student.save();
+});
+
+export { getRoom, getRooms,giveRoomPreferences,allocateRoom,viewRoomallocation,approveRoomallocation };

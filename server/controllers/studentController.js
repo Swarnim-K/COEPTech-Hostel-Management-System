@@ -28,7 +28,6 @@ const getStudent = expressAsyncHandler(async (req, res) => {
 
   try {
     const { userId } = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
-
     // Fetch user from database to check if they are an admin
     const requestingUser = await User.findOne({ _id: userId });
     if (requestingUser._id.toString() === req.body.id) {

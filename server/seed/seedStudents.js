@@ -20,11 +20,7 @@ const dataPath = join(__dirname, "tystudentsdata.csv");
 async function seedStudents() {
   const results = [];
 
-<<<<<<< Updated upstream
-  fs.createReadStream(dataPath)
-=======
-  fs.createReadStream("D:/Work/COEPTech-Hostel-Management-System/server/seed/tystudentsdata.csv")
->>>>>>> Stashed changes
+  fs.createReadStream("D:/Hackathon Coep/COEPTech-Hostel-Management-System/server/seed/tystudentsdata.csv")
     .pipe(csvParser({ separator: "," })) // Specify the separator as a comma
     .on("data", (data) => {
       console.log("Student Data:", data); // Log the data being read

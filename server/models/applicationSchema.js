@@ -64,10 +64,20 @@ const applicationSchema = new Schema(
         default: 1
       }
     },
+    roomPreferences: {
+      type: [{
+        type: Schema.Types.ObjectId,
+        ref: "Room",
+      }],
+      validate: [arrayLimit, 'Room array must have exactly 3 elements']
+    },
   },
   {
     timestamps: true,
   }
 );
 
+function arrayLimit(val) {
+  return val.length === 3;
+}
 export default mongoose.model("Application", applicationSchema);

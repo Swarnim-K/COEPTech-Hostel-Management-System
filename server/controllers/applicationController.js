@@ -86,8 +86,8 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
   if (req.query.year) 
   {
     let year = req.query.year;
-    // const total_boys = 231
-    // const total_girls = 147
+    const total_boys = 231
+    const total_girls = 147
     if (req.query.year === "fybtech") {
       year = "F.Y.B.Tech";
     } else if (req.query.year === "sybtech") {
@@ -126,7 +126,7 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
         }
       })
     }
-    const finalList = allocation(studentsByBranchBoys[branch],studentsByBranchGirls[branch])
+    const finalList = allocation(studentsByBranchBoys[branch],studentsByBranchGirls[branch],total_boys,total_girls)
     res.status(200).json({"Male":
     {
       "Confirmed" : finalList[0][0],

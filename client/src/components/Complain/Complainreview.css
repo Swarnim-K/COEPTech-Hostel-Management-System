@@ -1,0 +1,57 @@
+.App {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9fb;
+  padding: 20px;
+  color: #333;
+}
+
+.App-header {
+  background-color: #ffffff;
+  padding: 20px;
+  font-size: 24px;
+  color: #5D6473;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.review-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.review-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  margin: 10px;
+  padding: 20px;
+  width: calc(50% - 20px);
+  max-width: 500px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+}
+
+.checkbox, .delete-icon {
+  cursor: pointer;
+}
+
+.checkbox input[type='checkbox'] {
+  accent-color: #4CAF50;
+}
+
+.delete-icon {
+  color: #FF6347;
+  transition: color 0.3s;
+}
+
+.delete-icon:hover {
+  color: #FF4500;
+}

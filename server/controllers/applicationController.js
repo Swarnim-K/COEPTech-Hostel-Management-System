@@ -106,26 +106,43 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
       "allotment.allotmentRound": round,
     });
     
-    if (Object.keys(studentsByBranchBoys).length === 0 && Object.keys(studentsByBranchGirls).length === 0) 
-    {
-      console.log("hi")
-      applications.forEach(application => {
-        const { branch } = application;
+    // if (Object.keys(studentsByBranchBoys).length === 0 && Object.keys(studentsByBranchGirls).length === 0) 
+    // {
+    //   console.log("hi")
+    //   applications.forEach(application => {
+    //     const { branch } = application;
   
-        if (!studentsByBranchBoys[branch] && application.gender==="Male") {
-            studentsByBranchBoys[branch] = [];
-        }
-        else if(studentsByBranchBoys[branch] && application.gender==="Male"){
-            studentsByBranchBoys[branch].push(application);
-        }
-        else if (!studentsByBranchGirls[branch] && application.gender==="Female") {
-            studentsByBranchGirls[branch] = [];
-        }
-        else{
-            studentsByBranchGirls[branch].push(application)
-        }
-      })
-    }
+    //     if (!studentsByBranchBoys[branch] && application.gender==="Male") {
+    //         studentsByBranchBoys[branch] = [];
+    //     }
+    //     else if(studentsByBranchBoys[branch] && application.gender==="Male"){
+    //         studentsByBranchBoys[branch].push(application);
+    //     }
+    //     else if (!studentsByBranchGirls[branch] && application.gender==="Female") {
+    //         studentsByBranchGirls[branch] = [];
+    //     }
+    //     else{
+    //         studentsByBranchGirls[branch].push(application)
+    //     }
+    //   })
+    // }
+    applications.forEach(application => {
+      const { branch, gender } = application;
+
+      if (!studentsByBranchBoys[branch] && gender === "Male") {
+        studentsByBranchBoys[branch] = [];
+      }
+
+      if (!studentsByBranchGirls[branch] && gender === "Female") {
+        studentsByBranchGirls[branch] = [];
+      }
+
+      if (gender === "Male") {
+        studentsByBranchBoys[branch].push(application);
+      } else {
+        studentsByBranchGirls[branch].push(application);
+      }
+    });
     const finalList = allocation(studentsByBranchBoys[branch],studentsByBranchGirls[branch],total_boys,total_girls)
     res.status(200).json({"Male":
     {

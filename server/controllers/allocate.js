@@ -29,7 +29,9 @@ class allocate_seats {
         });
         this.counter = this.counter + this.open_seats
         this.applications.splice(0, this.open_seats);
-        this.applications.forEach((student, index) => {
+        for (let i = this.open_seats; i < this.applications.length; i++)
+        {
+            const student = this.applications[i];
             if (this.counter<= this.total_seats)
             {
                 if (student.category === "SC" && seatCounts[0] > 0) {
@@ -94,73 +96,26 @@ class allocate_seats {
                 waitingList.push(student);
                 seatCounts[8]++;
             }
-        });
+        }
         return  [openList,waitingList];
     }
 }
 
 
-// function allocation(applications) {
-//     applications.forEach(application => {
-//         const { branch } = application;
 
-//         if (!studentsByBranchBoys[branch] && applications.gender==="Male") {
-//             studentsByBranchBoys[branch] = [];
-//         }
-//         else if(studentsByBranchBoys[branch] && application.gender==="Male"){
-//             studentsByBranchBoys[branch].push(application);
-//         }
-//         else if (!studentsByBranchGirls[branch] && application.gender==="Female") {
-//             studentsByBranchGirls[branch] = [];
-//         }
-//         else{
-//             studentsByBranchGirls[branch].push(application)
-//         }
-        
-//     });
-//     return 
-// }
-
-
-function allocation(arr1,arr2,totalBoys, totalGirls ){
-
-    const factor = 21;
-    const instruFac = 1;
-    const PlanningFac = 2;
-    const MetaFac = 2;
-    const civilFac = 2;
-    const ManFac = 2;
-    const ElectricalFac = 2;
-    const EntcFac = 2;
-    const MechFac = 4;
-    const CompFac = 4;
-    //for boys
-    const civilBranch = (totalBoys/factor) * civilFac;
-    const electricalBranch = (totalBoys/factor) * ElectricalFac;
-    const entcBranch = (totalBoys/factor) * EntcFac;
-    const manuBranch = (totalBoys/factor) * ManFac;
-    const mechanicalBranch = (totalBoys/factor) * MechFac;
-    const metaBranch = (totalBoys/factor) * MetaFac;
-    const planningBranch = (totalBoys/factor) * PlanningFac;
-    const instruBranch = (totalBoys/factor) * instruFac;
-    const compBranch = (totalBoys/factor) * CompFac;
-
-    const civilBranchGirls = (totalGirls / factor) * civilFac;
-    const electricalBranchGirls = (totalGirls / factor) * ElectricalFac;
-    const entcBranchGirls = (totalGirls / factor) * EntcFac;
-    const manuBranchGirls = (totalGirls / factor) * ManFac;
-    const mechanicalBranchGirls = (totalGirls / factor) * MechFac;
-    const metaBranchGirls = (totalGirls / factor) * MetaFac;
-    const planningBranchGirls = (totalGirls / factor) * PlanningFac;
-    const instruBranchGirls = (totalGirls / factor) * instruFac;
-    const compBranchGirls = (totalGirls / factor) * CompFac;
-    
-    const branch_boys = (new allocate_seats(civilBranch,arr1)).allocate();
-    const branch_girls = (new allocate_seats(civilBranchGirls,arr2)).allocate();
-   
+function allocation(arr1,arr2){
+    // const civil = (new allocate_seats(22, studentsByBranch["Civil Engineering"])).allocate();
+    const branch_boys = (new allocate_seats(44,arr1)).allocate();
+    const branch_girls = (new allocate_seats(28,arr2)).allocate();
+    // const electrical =( new allocate_seats(22,studentsByBranch["Electrical Engineering"])).allocate();
+    // const entc = (new allocate_seats(22,studentsByBranch["Electronics and Telecommunication Engineering"])).allocate();
+    // const instru = (new allocate_seats(11,studentsByBranch["Instrumentation and Control Engineering"])).allocate();
+    // const manu = (new allocate_seats(22,studentsByBranch["Manufacturing Science and Engineering"])).allocate();
+    // const mechanical = (new allocate_seats(44,studentsByBranch["Mechanical Engineering"])).allocate();
+    // const meta = (new allocate_seats(22,studentsByBranch["Metallurgy and Materials Technology"])).allocate();
+    // const planning = (new allocate_seats(22,studentsByBranch["Planning"])).allocate();
     return [ branch_boys,branch_girls];
 }
-
 
 export default allocation;
 

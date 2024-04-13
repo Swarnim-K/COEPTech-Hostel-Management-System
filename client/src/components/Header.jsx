@@ -44,13 +44,13 @@ const Header = () => {
                     <LinkContainer to="/allotment">
                       <NavDropdown.Item>Allotment</NavDropdown.Item>
                     </LinkContainer>
+                    <LinkContainer to="/guest">
+                      <NavDropdown.Item>Guest Allocation</NavDropdown.Item>
+                    </LinkContainer>
                     <NavDropdown.Item onClick={logoutHandler}>
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <LinkContainer to="/Guesthome">
-                    <Nav.Link>Guest Allocation</Nav.Link>
-                  </LinkContainer>
                 </>
               ) : (
                 <>

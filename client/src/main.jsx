@@ -16,8 +16,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import RoomAllocationPage from './pages/RoomAllocationPage.jsx';
 import HostelApplicationPage from './pages/HostelApplicationPage.jsx';
 import AllotmentPage from './pages/AllotmentPage.jsx';
-import GuestHome from './components/Guest allocation/GuestHome.jsx';
-import AllotmentMainPage from './components/Allotment/AllotmentMainPage.jsx';
+import GuestRoomAllocationPage from './pages/GuestRoomAllocationPage.jsx';
+// import AllotmentMainPage from './components/Allotment/AllotmentMainPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import ComplaintPage from './pages/ComplaintPage.jsx';
 
@@ -28,10 +28,8 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/allocate" element={<RoomAllocationPage />} />
       <Route path="/allocate/register" element={<HostelApplicationPage />} />
-      <Route path="/allotment" element={<AllotmentMainPage />} />
+      {/* <Route path="/allotment" element={<AllotmentMainPage />} /> */}
       <Route path="/allotment/:round/:year" element={<AllotmentPage />} />
-      <Route path="/complaint" element={<ComplaintPage />} />
-      <Route path="/guest" element={<GuestHome />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>,
   ),

@@ -1,4 +1,6 @@
+class create_data{
 
+}
 class allocate_seats {
     constructor(total_seats, applications) {
         this.applications = applications;
@@ -17,7 +19,6 @@ class allocate_seats {
     }
     allocate() {
         let seatCounts = [this.sc_seats, this.st_seats, this.vj_seats, this.nt1_seats, this.nt2_seats, this.nt3_seats, this.obc_seats, this.ews_seats, this.waiting_seat]
-        console.log(seatCounts)
         this.applications.sort((a, b) =>
             a.grade < b.grade ? 1 : -1)
         const openList = this.applications.slice(0, this.open_seats);
@@ -98,31 +99,31 @@ class allocate_seats {
     }
 }
 
-function allocation(applications,branch) {
-    const studentsByBranchBoys = [];
-    const studentsByBranchGirls=[]
 
-    applications.forEach(application => {
-        //const { branch } = application;
+// function allocation(applications) {
+//     applications.forEach(application => {
+//         const { branch } = application;
 
-        if (!studentsByBranchBoys[branch] && applications.gender==="Male") {
-            studentsByBranchBoys[branch] = [];
-        }
-        else if(studentsByBranchBoys[branch] && application.gender==="Male"){
-            studentsByBranchBoys[branch].push(application);
-        }
-        else if (!studentsByBranchGirls[branch] && application.gender==="Female") {
-            studentsByBranchGirls[branch] = [];
-        }
-        else{
-            studentsByBranchGirls[branch].push(application)
-        }
+//         if (!studentsByBranchBoys[branch] && applications.gender==="Male") {
+//             studentsByBranchBoys[branch] = [];
+//         }
+//         else if(studentsByBranchBoys[branch] && application.gender==="Male"){
+//             studentsByBranchBoys[branch].push(application);
+//         }
+//         else if (!studentsByBranchGirls[branch] && application.gender==="Female") {
+//             studentsByBranchGirls[branch] = [];
+//         }
+//         else{
+//             studentsByBranchGirls[branch].push(application)
+//         }
         
-    });
-
+//     });
+//     return 
+// }
+function allocation(arr1,arr2){
     // const civil = (new allocate_seats(22, studentsByBranch["Civil Engineering"])).allocate();
-    const branch_boys = (new allocate_seats(44,studentsByBranchBoys[branch])).allocate();
-    const branch_girls = (new allocate_seats(28,studentsByBranchGirls[branch])).allocate();
+    const branch_boys = (new allocate_seats(44,arr1)).allocate();
+    const branch_girls = (new allocate_seats(28,arr2)).allocate();
     // const electrical =( new allocate_seats(22,studentsByBranch["Electrical Engineering"])).allocate();
     // const entc = (new allocate_seats(22,studentsByBranch["Electronics and Telecommunication Engineering"])).allocate();
     // const instru = (new allocate_seats(11,studentsByBranch["Instrumentation and Control Engineering"])).allocate();
@@ -130,7 +131,7 @@ function allocation(applications,branch) {
     // const mechanical = (new allocate_seats(44,studentsByBranch["Mechanical Engineering"])).allocate();
     // const meta = (new allocate_seats(22,studentsByBranch["Metallurgy and Materials Technology"])).allocate();
     // const planning = (new allocate_seats(22,studentsByBranch["Planning"])).allocate();
-    return [ computer_boys,computer_girls];
+    return [ branch_boys,branch_girls];
 }
 
 export default allocation;

@@ -17,6 +17,9 @@ const __dirname = dirname(__filename);
 const envPath = join(__dirname, "..", ".env");
 dotenv.config({ path: envPath });
 
+const studentsByBranchBoys = {};
+const studentsByBranchGirls={};
+
 const getApplication = expressAsyncHandler(async (req, res) => {
   const { username } = await User.findById(req.params.id);
   const application = await Application.findOne({
@@ -80,11 +83,11 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
   const allotment = await Allotment.findOne({
     academicYearStart,
   });
-  if (req.query.year) {
+  if (req.query.year) 
+  {
     let year = req.query.year;
-    // const branch = "Civil Engineering"
-    const total_boys = 231
-    const total_girls = 147
+    // const total_boys = 231
+    // const total_girls = 147
     if (req.query.year === "fybtech") {
       year = "F.Y.B.Tech";
     } else if (req.query.year === "sybtech") {
@@ -102,7 +105,28 @@ const autoSortApplications = expressAsyncHandler(async (req, res) => {
       "allotment.allotmentId": allotment._id,
       "allotment.allotmentRound": round,
     });
-    const finalList = allocation(applications, branch)
+    
+    if (Object.keys(studentsByBranchBoys).length === 0 && Object.keys(studentsByBranchGirls).length === 0) 
+    {
+      console.log("hi")
+      applications.forEach(application => {
+        const { branch } = application;
+  
+        if (!studentsByBranchBoys[branch] && application.gender==="Male") {
+            studentsByBranchBoys[branch] = [];
+        }
+        else if(studentsByBranchBoys[branch] && application.gender==="Male"){
+            studentsByBranchBoys[branch].push(application);
+        }
+        else if (!studentsByBranchGirls[branch] && application.gender==="Female") {
+            studentsByBranchGirls[branch] = [];
+        }
+        else{
+            studentsByBranchGirls[branch].push(application)
+        }
+      })
+    }
+    const finalList = allocation(studentsByBranchBoys[branch],studentsByBranchGirls[branch])
     res.status(200).json({"Male":
     {
       "Confirmed" : finalList[0][0],
